@@ -1,19 +1,11 @@
 # ju_flutter
+一个新的Flutter项目.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 文档
+- [demo](https://flutter.dev/docs/get-started/codelab)
+- [flutter示例](https://flutter.dev/docs/cookbook)
+- [在线文档](https://flutter.dev/docs)提供教程，示例，移动开发指南以及完整的API参考。
+- [很全面的文档](https://github.com/flutterchina/flutter-in-action/blob/master/docs/SUMMARY.md)
 
 ## 克隆之后需要执行的操作
 1:检查flutter是否正确安装，若没正确安装，自己找资料解决
