@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("命名路由传参"),
               textColor: Colors.pink,
               onPressed: () async {
-                var result = await Navigator.of(context).pushNamed("route_name_param", arguments: "命名路由传递的参数");
+                var result = await Navigator.of(context).pushNamed("route_name_param", arguments: "我是命名路由传递的参数");
                 print("命名路由返回值是: $result");
               },
             )
