@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(
                     builder: (context) {
                       return ParamRoute(
-                        text: "我是非命名路由传过来的参数文本", // 路由参数文本
+                        text: "我是非命名路由传的参数文本", // 路由参数文本
                       );
                     },
                   ),
@@ -152,8 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(
               child: Text("命名路由传参"),
               textColor: Colors.pink,
-              onPressed: () {
-                Navigator.of(context).pushNamed("route_name_param", arguments: "命名路由传递的参数");
+              onPressed: () async {
+                var result = await Navigator.of(context).pushNamed("route_name_param", arguments: "命名路由传递的参数");
+                print("命名路由返回值是: $result");
               },
             )
           ],
