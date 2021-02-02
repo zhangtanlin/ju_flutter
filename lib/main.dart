@@ -19,15 +19,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // MaterialUI库中提供的UI架构
     return MaterialApp(
-      title: 'Flutter 示例',
-      theme: ThemeData(
-        // 应用的主题
-        primarySwatch: Colors.blue, // 可选颜色 Colors.green等
-        visualDensity: VisualDensity
-            .adaptivePlatformDensity, // 密度（可选-4到4之间的值，越小表示越密集/更紧凑。此处的值表示。此处的值表示：台式机平台使用紧凑型，其他平台按规范来）
-      ),
-      home: MyHomePage(title: 'flutter 首页'), // 首页部件
-    );
+    title: 'Flutter 示例',
+    theme: ThemeData(
+      // 应用的主题
+      primarySwatch: Colors.blue, // 可选颜色 Colors.green等
+      visualDensity: VisualDensity
+          .adaptivePlatformDensity, // 密度（可选-4到4之间的值，越小表示越密集/更紧凑。此处的值表示。此处的值表示：台式机平台使用紧凑型，其他平台按规范来）
+    ),
+    // home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
+    // 注册路由
+    routes: {
+      'route_name': (context) => RouteName(), // 命名路由
+      'route_name_param': (context) {
+        return RouteNameParam(
+          text: ModalRoute.of(context).settings.arguments
+        );
+      }, // 命名路由传参
+      '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
+    });
   }
 }
 
@@ -59,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-
   @override
   // 部件构建/重新构建（每次调用 setState 方法都会重新运行此方法）
   Widget build(BuildContext context) {
@@ -113,10 +121,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-            // 打开参数按钮
+            // 非命名路由传参
             RaisedButton(
               child: Text("打开接收参数的非命名路由"),
-              textColor: Colors.orange[900], // 文字为蓝色
+              textColor: Colors.orange[900], // 文字为橙色
               onPressed: () async {
                 // 通过等待 Navigator.push() 返回的 future 来获取非命名路由的返回数据。
                 var result = await Navigator.push(
@@ -130,6 +138,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ); // 打开`ParamRoute`，并等待返回结果
                 print("非命名路由返回值是: $result"); // 输出 ParamRoute 非命名路由出栈时返回的结果
+              },
+            ),
+            // 命名路由
+            RaisedButton(
+              child: Text("命名路由"),
+              textColor: Colors.green[900],
+              onPressed: () {
+                Navigator.pushNamed(context, "route_name");
+              },
+            ),
+            // 命名路由传参
+            RaisedButton(
+              child: Text("命名路由传参"),
+              textColor: Colors.pink,
+              onPressed: () {
+                Navigator.of(context).pushNamed("route_name_param", arguments: "命名路由传递的参数");
               },
             )
           ],
@@ -161,20 +185,20 @@ class NewRoute extends StatelessWidget {
 }
 
 /*
- * 非命名路由传值参数
+ * 非命名路由传参
  * 在 ParamRoute 页中有两种方式可以返回到上一页；第一种方式是直接点击导航栏返回箭头（不会返回数据给上一个路由），第二种方式是点击页面中的“返回”按钮（会返回数据给上一个路由）。
  */
 class ParamRoute extends StatelessWidget {
   ParamRoute({
     Key key,
-    @required this.text,  // 接收一个传递过来的 text 参数
+    @required this.text, // 接收一个传递过来的 text 参数
   }) : super(key: key);
   final String text; // 定义一个 final 类型的字符串（把传递过来的 text 参数赋值给这个字符串）
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('参数路由'),
+        title: Text('非命名路由传参'),
       ),
       body: Padding(
         padding: EdgeInsets.all(18),
@@ -184,10 +208,66 @@ class ParamRoute extends StatelessWidget {
               Text(text),
               RaisedButton(
                 child: Text('返回'),
-                textColor: Colors.orange[900], // 文字为蓝色
+                textColor: Colors.orange[900], // 文字为橙色
                 onPressed: () => Navigator.pop(context, '1参数2路由3返回值4'),
               ),
               Text('非命名路由出栈时传递的参数：1参数2路由3返回值4')
+            ],
+          ),
+        )
+      )
+    );
+  }
+}
+
+// 命名路由
+class RouteName extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('命名路由的页面'),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('返回'),
+              textColor: Colors.green[900],
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      )
+    );
+  }
+}
+
+// 命名路由传参
+class RouteNameParam extends StatelessWidget {
+  RouteNameParam({
+    Key key,
+    @required this.text,
+  }) : super(key: key);
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('命名路由传参'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(18),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Text(text),
+              RaisedButton(
+                child: Text('返回'),
+                textColor: Colors.green[900],
+                onPressed: () => Navigator.pop(context, '5参数6路由7返回值8'),
+              ),
+              Text('命名路由出栈时传递的参数：5参数6路由7返回值8')
             ],
           ),
         )
