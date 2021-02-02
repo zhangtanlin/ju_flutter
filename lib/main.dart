@@ -19,24 +19,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // MaterialUI库中提供的UI架构
     return MaterialApp(
-    title: 'Flutter 示例',
-    theme: ThemeData(
-      // 应用的主题
-      primarySwatch: Colors.blue, // 可选颜色 Colors.green等
-      visualDensity: VisualDensity
-          .adaptivePlatformDensity, // 密度（可选-4到4之间的值，越小表示越密集/更紧凑。此处的值表示。此处的值表示：台式机平台使用紧凑型，其他平台按规范来）
-    ),
-    // home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
-    // 注册路由
-    routes: {
-      'route_name': (context) => RouteName(), // 命名路由
-      'route_name_param': (context) {
-        return RouteNameParam(
-          text: ModalRoute.of(context).settings.arguments
-        );
-      }, // 命名路由传参
-      '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
-    });
+      title: 'Flutter 示例',
+      theme: ThemeData(
+        // 应用的主题
+        primarySwatch: Colors.blue, // 可选颜色 Colors.green等
+        visualDensity: VisualDensity
+            .adaptivePlatformDensity, // 密度（可选-4到4之间的值，越小表示越密集/更紧凑。此处的值表示。此处的值表示：台式机平台使用紧凑型，其他平台按规范来）
+      ),
+      // home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
+      // 注册路由
+      routes: {
+        'route_name': (context) => RouteName(), // 命名路由
+        'route_name_param': (context) {
+          return RouteNameParam(
+            text: ModalRoute.of(context).settings.arguments
+          );
+        }, // 命名路由传参
+        '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
+      }
+    );
   }
 }
 
