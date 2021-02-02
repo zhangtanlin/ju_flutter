@@ -14,3 +14,4 @@
   flutter devices
 3:运行
   flutter run
+  注意：flutter 应用程序只有在调试模式下才能被热重载。如果使用 flutter run 运行应用程序，在终端运行状态下输入 r 可以进行热重载。
