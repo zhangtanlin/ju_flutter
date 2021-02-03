@@ -26,33 +26,38 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity
             .adaptivePlatformDensity, // 密度（可选-4到4之间的值，越小表示越密集/更紧凑。此处的值表示。此处的值表示：台式机平台使用紧凑型，其他平台按规范来）
       ),
-      home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
+      // home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
       // 注册路由
       routes: {
+        '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
         'route_name': (context) => RouteName(), // 命名路由
         'route_name_param': (context) {
           return RouteNameParam(
             text: ModalRoute.of(context).settings.arguments
           );
         }, // 命名路由传参
-        // '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
       },
-      /**
+      /*
        * 路由钩子【重点】
        * MaterialApp 的 onGenerateRoute 属性，在打开命名路由时可能会被调用，
        * 之所以说可能，是因为当调用 Navigator.pushNamed() 打开命名路由时，
        * 如果指定的路由名在路由表中已注册，则会调用路由表中的 builder 函数来生成路由组件；
        * 如果路由表中没有注册，才会调用 onGenerateRoute 来生成路由。
-       * 注意: onGenerateRoute 的使用和注册路由及路由打开方式相关。
+       * 注意1: onGenerateRoute 的使用和注册路由及路由打开方式相关。
+       * 注意2:其他路由钩子，比如: navigatorObservers 和 onUnknownRoute两个回调属性，前者可以监听所有路由跳转动作，后者在打开一个不存在的命名路由时会被调用。
+       * 建议:命名路由只是一种可选的路由管理方式，在实际开发中，建议最好统一使用命名路由的管理方式。
+       *      原因1:语义化更明确。
+       *      原因2:代码更好维护；如果使用匿名路由，则必须在调用 Navigator.push() 的地方创建新路由页，这样不仅需要 import 新路由页的 dart 文件，而且这样的代码将会非常分散。
+       *      原因3:可以通过 onGenerateRoute 做一些全局的路由跳转前置处理逻辑。
        */
-      // onGenerateRoute:(RouteSettings settings){
-      //   return MaterialPageRoute(builder: (context){
-      //     String currentRouteName = settings.name;
-      //     if(currentRouteName == 'route_hook') {
-      //       return Login();
-      //     }
-      //   });
-      // }
+      onGenerateRoute:(RouteSettings settings){
+        return MaterialPageRoute(builder: (context){
+          String currentRouteName = settings.name;
+          if(currentRouteName == 'route_hook') {
+            return Login();
+          }
+        });
+      }
     );
   }
 }
