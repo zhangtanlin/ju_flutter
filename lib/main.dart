@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity
             .adaptivePlatformDensity, // 密度（可选-4到4之间的值，越小表示越密集/更紧凑。此处的值表示。此处的值表示：台式机平台使用紧凑型，其他平台按规范来）
       ),
-      // home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
+      home: MyHomePage(title: 'flutter 首页'), // 首页部件（也可以使用注册路由的方式来注册 MyHomePage 部件）
       // 注册路由
       routes: {
         'route_name': (context) => RouteName(), // 命名路由
@@ -35,8 +35,24 @@ class MyApp extends StatelessWidget {
             text: ModalRoute.of(context).settings.arguments
           );
         }, // 命名路由传参
-        '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
-      }
+        // '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
+      },
+      /**
+       * 路由钩子【重点】
+       * MaterialApp 的 onGenerateRoute 属性，在打开命名路由时可能会被调用，
+       * 之所以说可能，是因为当调用 Navigator.pushNamed() 打开命名路由时，
+       * 如果指定的路由名在路由表中已注册，则会调用路由表中的 builder 函数来生成路由组件；
+       * 如果路由表中没有注册，才会调用 onGenerateRoute 来生成路由。
+       * 注意: onGenerateRoute 的使用和注册路由及路由打开方式相关。
+       */
+      // onGenerateRoute:(RouteSettings settings){
+      //   return MaterialPageRoute(builder: (context){
+      //     String currentRouteName = settings.name;
+      //     if(currentRouteName == 'route_hook') {
+      //       return Login();
+      //     }
+      //   });
+      // }
     );
   }
 }
@@ -156,6 +172,14 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 var result = await Navigator.of(context).pushNamed("route_name_param", arguments: "我是命名路由传递的参数");
                 print("命名路由返回值是: $result");
+              },
+            ),
+            // 路由钩子（当点击时会触发路由前置判定，如果点击就跳转“新路由页面”）
+            RaisedButton(
+              child: Text("路由钩子（路由前置判定）"),
+              textColor: Colors.purpleAccent[400],
+              onPressed: () {
+                Navigator.pushNamed(context, "route_hook");
               },
             )
           ],
@@ -277,3 +301,18 @@ class RouteNameParam extends StatelessWidget {
     );
   }
 }
+
+// 登陆界面
+class Login extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('登陆'),
+      ),
+      body: Center(
+        child: Text('登陆界面')
+      )
+    );
+  }
+} 
