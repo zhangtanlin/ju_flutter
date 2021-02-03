@@ -12,6 +12,7 @@
   flutter doctor
 2:检查是否有设备已经连接
   flutter devices
-3:运行
-  flutter run
+3:
+  (1)打开模拟器:open -a Simulator
+  (2)启动程序:flutter run
   注意：flutter 应用程序只有在调试模式下才能被热重载。如果使用 flutter run 运行应用程序，在终端运行状态下输入 r 可以进行热重载。
