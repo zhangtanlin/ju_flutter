@@ -7,6 +7,15 @@
 - [在线文档](https://flutter.dev/docs)提供教程，示例，移动开发指南以及完整的API参考。
 - [很全面的文档](https://github.com/flutterchina/flutter-in-action/blob/master/docs/SUMMARY.md)
 
+## 目录介绍
+* pubspec.yaml flutter包管理工具
+  > name：应用或包名称。
+  > description: 应用或包的描述、简介。
+  > version：应用或包的版本号。
+  > dependencies：应用或包依赖的其它包或插件。
+  > dev_dependencies：开发环境依赖的工具包（而不是flutter应用本身依赖的包）。
+  > flutter：flutter相关的配置选项。
+
 ## 克隆之后需要执行的操作
 1:检查flutter是否正确安装，若没正确安装，自己找资料解决
   flutter doctor
