@@ -9,20 +9,20 @@
 
 ## 目录介绍
 * pubspec.yaml flutter包管理工具
-  > 1. name：应用或包名称。
-  > 2. description：应用或包的描述、简介。
-  > 3. version：应用或包的版本号。
-  > 4. dependencies：应用或包依赖的其它包或插件。
-  > 5. dev_dependencies：开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）。
-  > 6. flutter：flutter 相关的配置选项。
+  >1. name：应用或包名称。
+  >2. description：应用或包的描述、简介。
+  >3. version：应用或包的版本号。
+  >4. dependencies：应用或包依赖的其它包或插件。
+  >5. dev_dependencies：开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）。
+  >6. flutter：flutter 相关的配置选项。
 
 ## 克隆之后需要执行的操作
-1. 检查 flutter 是否正确安装，若没正确安装，自己找资料解决
-  flutter doctor
-2. 检查是否有设备已经连接
-  flutter devices
-3. 
-  (1)打开 ios 模拟器: open -a Simulator
-  (2)安装依赖: flutter packages get
-  (3)启动程序: flutter run
-  注意：flutter 应用程序只有在调试模式下才能被热重载。如果使用 flutter run 运行应用程序，在终端运行状态下输入 r 可以进行热重载。
+1. 检查 flutter 是否正确安装，若没正确安装，自己找资料解决<br>
+  **flutter doctor**
+2. 检查是否有设备已经连接<br>
+  **flutter devices**
+3. 运行。<br>
+  (1)打开 ios 模拟器: **open -a Simulator**<br>
+  (2)安装依赖: **flutter packages get**<br>
+  (3)启动程序: **flutter run**<br>
+  注意：flutter 应用程序只有在调试模式下才能被热重载。如果使用 flutter run 运行应用程序，在终端运行状态下输入 **r** 可以进行热重载。<br>
