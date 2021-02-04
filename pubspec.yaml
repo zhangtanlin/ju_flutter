@@ -37,7 +37,12 @@ flutter:
   # 下面行确保您的应用程序包含 Material Icons 字体，以便于能够使用 material Icons 类中的图标。
   uses-material-design: true
 
-  # 要添加资源到应用程序，在此处添加资源部分，像：
+  # 要添加资源到应用程序，在此处添加资源部分，
+  # 资源部分包括静态数据（例如JSON文件）、配置文件、图标和图片（JPEG，WebP，GIF，动画WebP / GIF，PNG，BMP和WBMP）等。
+  # asset 相对于 pubspec.yaml 文件所在的文件系统路径来标识自身的路径。
+  # 注意1：asset 的声明顺序无关紧要，asset 的实际目录可以是任意文件夹。
+  # 注意2：构建期间，Flutter 将 asset 放置到称为 asset bundle 的特殊存档中，应用程序可以在运行时读取它们（但不能修改）。
+  # 参考文档： https://github.com/flutterchina/flutter-in-action/blob/master/docs/chapter2/flutter_assets_mgr.md
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
