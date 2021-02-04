@@ -204,13 +204,14 @@ class _MyHomePageState extends State<MyHomePage> {
 class NewRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('新路由'),
+    // Container 背景图模块
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("images/bg.jpg"),
+          fit: BoxFit.cover
+        )
       ),
-      body: Center(
-        child: Text('这是新路由')
-      )
     );
   }
 }
