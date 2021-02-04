@@ -15,13 +15,14 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+# 应用依赖的其他包或插件
 dependencies:
   flutter:
     sdk: flutter
-
   # 将 Cupertino Icons 字体添加到您的应用程序，把 CupertinoIcons 类用于 IOS 样式图标。
   cupertino_icons: ^1.0.0
 
+# 开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）
 dev_dependencies:
   flutter_test:
     sdk: flutter
