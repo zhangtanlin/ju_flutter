@@ -1,20 +1,15 @@
+# 以下部分是公共参数配置
 name: ju_flutter
 description: A new Flutter project.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+# 防止使用`pub publish`将程序包意外发布到 pub.dev 。这是私有 packages 的首选设置。
+publish_to: 'none' # 如果希望发布到 pub.dev 可以删除此行。
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# 应用程序的版本和内部版本号
+# 版本号是由点分隔的三个数字，像 1.2.43 后接可选的内部版本号，并用 + 号分隔，
+# Both the version and the builder number may be overridden in flutter build by specifying --build-name and --build-number, respectively.
+# 在Android中，内部版本名称(build-name)用作 versionName 而内部版本编号(build-number)用作 versionCode ,阅读更多关于安卓版本控制在 https://developer.android.com/studio/publish/versioning。
+# 在 IOS 中 内部版本名称（build-name）用作 CFBundleShortVersionString ,而内部版本编号(build-number)用作 CFBundleVersion ，阅读更多关于 IOS 版本控制在 https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html。
 version: 1.0.0+1
 
 environment:
@@ -24,42 +19,30 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # 将 Cupertino Icons 字体添加到您的应用程序，把 CupertinoIcons 类用于 IOS 样式图标。
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+# 更多关于通用 Dart 配置，请参见：https://dart.dev/tools/pub/pubspec
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
+# 以下部分专门针对Flutter。
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+  # 下面行确保您的应用程序包含 Material Icons 字体，以便于能够使用 material Icons 类中的图标。
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
+  # 要添加资源到应用程序，在此处添加资源部分，像：
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  # 一个图片资源可以引用一个或者多个特定分辨率的变体，文档查看 https://flutter.dev/assets-and-images/#resolution-aware
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
+  # 有关从包依赖项添加资产的详细信息，请参见 https://flutter.dev/assets-and-images/#from-packages
 
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
+  # 添加自定义字体进入应用，请在此处添加字体部分，在当前 flutter 部分，
+  # 在这个列表中每个条目都应该有关键字 family 作为字体名称，和一个 fonts 关键字来获取资源以及其他的相关描述，
+  # 例如:
   # fonts:
   #   - family: Schyler
   #     fonts:
@@ -71,6 +54,4 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  # 软件包字体相关的详细信息，查看 https://flutter.dev/custom-fonts/#from-packages
