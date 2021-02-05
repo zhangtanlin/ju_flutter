@@ -26,3 +26,10 @@
   (2).安装依赖: **flutter packages get**<br>
   (3).启动程序: **flutter run**<br>
   注意：flutter 应用程序只有在调试模式下才能被热重载。如果使用 flutter run 运行应用程序，在终端运行状态下输入 **r** 可以进行热重载。<br>
+
+## 编辑代码之后执行的代码检查
+1. 代码检查<br>
+  flutter analyze<br>
+
+## 代码调试
+- [参考文档](https://github.com/flutterchina/flutter-in-action/blob/master/docs/chapter2/flutter_app_debug.md)
