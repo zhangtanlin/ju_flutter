@@ -51,12 +51,12 @@ class MyApp extends StatelessWidget {
        *      原因3:可以通过 onGenerateRoute 做一些全局的路由跳转前置处理逻辑。
        */
       onGenerateRoute:(RouteSettings settings){
-        return MaterialPageRoute(builder: (context){
-          String currentRouteName = settings.name;
-          if(currentRouteName == 'route_hook') {
+        if (settings.name == 'route_hook') {
+          return MaterialPageRoute(builder: (context){
             return Login();
-          }
-        });
+          });
+        }
+        return null;
       }
     );
   }
