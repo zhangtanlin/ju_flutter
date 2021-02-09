@@ -18,6 +18,8 @@
 
 ## 克隆之后需要执行的操作
 1. 检查 flutter 是否正确安装，若没正确安装，自己找资料解决<br>
+    # vscode 开发 flutter 的准备工作
+    > * 打开 vscode 的插件安装界面，安装 Flutter/Flutter Widget Snippets/Dart 插件。
   **flutter doctor**
 2. 检查是否有设备已经连接<br>
   **flutter devices**
