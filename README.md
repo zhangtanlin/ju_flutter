@@ -21,6 +21,8 @@
     ### 使用**flutter doctor**检查 flutter 是否已正确安装
     ### vscode 开发 flutter 的准备工作
       >* 打开 vscode 的插件安装界面，安装 Flutter/Flutter Widget Snippets/Dart 插件。
+      >* 使用 cmd+shift+p 打开 vscode 插件命令， 输入 Fluter:Select Device 再选择设备，进行运行。【注意：在 window 上需要把360助手那些关闭】
+      >* 默认 vscode 
 2. 检查是否有设备已经连接<br>
   **flutter devices**
 3. 运行。<br>
