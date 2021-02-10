@@ -94,7 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
   // 部件构建/重新构建（每次调用 setState 方法都会重新运行此方法）
   Widget build(BuildContext context) {
     // MaterialUI库中提供的UI架构
-    print(widget);
     return Scaffold(
       // 标题导航栏
       appBar: AppBar(
