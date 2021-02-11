@@ -190,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.cyan[600],
               onPressed: () {
                 try {
-                  throw '错误提示';
+                  throw '错误提示'; // 主动抛出错误，调试模式下代码会在此处暂停
                 } catch (e) {
                   print("catch的错误:$e");
                 }
