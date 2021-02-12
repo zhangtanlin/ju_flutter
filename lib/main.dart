@@ -1,5 +1,6 @@
 // 倒入 ui
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/learnStatelessWidget.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
 void main() {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
           'route_name': (context) => RouteName(), // 命名路由
+          'show_echo': (context) => ShowEcho(),
           'route_name_param': (context) {
             return RouteNameParam(
                 text: ModalRoute.of(context).settings.arguments);
@@ -195,7 +197,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   print("catch的错误:$e");
                 }
               },
-            )
+            ),
+            // 打开自定义 Echo 部件（新部件内部使用自定义弹出框部件弹出数据
+            RaisedButton(
+              child: Text("点击打开自定义 Echo 部件"),
+              textColor: Colors.deepOrange[900],
+              onPressed: () {
+                Navigator.pushNamed(context, "show_echo");
+              },
+            ),
           ],
         ),
       ),
@@ -318,5 +328,13 @@ class Login extends StatelessWidget {
           title: Text('登陆'),
         ),
         body: Center(child: Text('登陆界面')));
+  }
+}
+
+// 自定义 echo 部件
+class ShowEcho extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Echo(text: "自定义的 Echo 部件");
   }
 }
