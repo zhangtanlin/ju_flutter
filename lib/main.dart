@@ -1,6 +1,6 @@
 // 倒入 ui
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/learnStatelessWidget.dart';
+import 'package:ju_flutter/2statelessWidget.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
 void main() {
