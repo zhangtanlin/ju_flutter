@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => MyHomePage(title: "flutter 首页"), // 首页部件
           'route_name': (context) => RouteName(), // 命名路由
           'show_echo': (context) => ShowEcho(),
+          'child_get_parent': (context) => ChildGetParent(),
           'route_name_param': (context) {
             return RouteNameParam(
                 text: ModalRoute.of(context).settings.arguments);
@@ -204,6 +205,14 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.deepOrange[900],
               onPressed: () {
                 Navigator.pushNamed(context, "show_echo");
+              },
+            ),
+            // 子树中获取父级widget
+            RaisedButton(
+              child: Text("子树中获取父级 widget"),
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.pushNamed(context, "child_get_parent");
               },
             ),
           ],
