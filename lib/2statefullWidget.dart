@@ -47,10 +47,10 @@ class _CounterWidgetState extends State<CounterWidget> {
   /*
    * 构建 Widget 子树，一下场景会被调用
    * 1:在调用 initState() 之后。
-   * 1:在调用 disUpdateWidget() 之后。
-   * 1:在调用 setState() 之后。
-   * 1:在调用 didChangeDepencies() 之后。
-   * 1:在 State 对象从 Widget 树中的一个位置移除后（会调用 deactivate）又重新插入到 Widget 树的其他位置之后。
+   * 2:在调用 disUpdateWidget() 之后。
+   * 3:在调用 setState() 之后。
+   * 4:在调用 didChangeDepencies() 之后。
+   * 5:在 State 对象从 Widget 树中的一个位置移除后（会调用 deactivate）又重新插入到 Widget 树的其他位置之后。
    */
   @override
   Widget build(BuildContext context) {
