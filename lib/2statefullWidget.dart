@@ -51,6 +51,27 @@ class _CounterWidgetState extends State<CounterWidget> {
    * 3:在调用 setState() 之后。
    * 4:在调用 didChangeDepencies() 之后。
    * 5:在 State 对象从 Widget 树中的一个位置移除后（会调用 deactivate）又重新插入到 Widget 树的其他位置之后。
+   * 注意：把 build（）方法放在 state 中主要是为了开发的灵活性，如果放在 stateful了Widget 会出现两个问题：
+   *      （1）：状态访问不便。如果 statefullwidget 有很多状态，而每次状态改变都要调用 build方法，由于状态是保存在 state中，
+   *       如果build方法在 statefullwidget 中，那么构建时读取状态不便。
+   *       例如由于构建用户界面，过程需要依赖state，所以build方法将必须加一个 state参数。如：
+   *          Widget build(BuildContext context, State state){...}
+   *       这样的话，就只能将state的所有状态申明为公开，这样才能在state类外部访问状态。但是状态将不具有私密性，这样会导致状态的修改将会变的不可控，
+   *       如果将build方法放在state中，构建过程不仅可以直接访问，而且也无需公开私有状态。
+   *      （2）：继承 statefullwidget 不便。 例如：
+   *       flutter 中有一个动画widget的基类 AnimatedWidget，它继承自 StatefullWidget 类。
+   *       AnimatedWidget 中引入一个抽象方法 build(BuildContext context),继承自 AnimatedWidget 的动画都要实现这个 build 方法。
+   *       现在设想如果 StatefullWidget 类中已经有了一个 build方法，正如上面所述，此时 build方法需要接收一个 state 对象，这就意味着
+   *       AnimatedWidget 必须将自己的 State 对象（记为_animatedWidgetState）提供给其子类，因此子类需要在其 build 方法中调用父类的 build 方法。如：
+   *          class MyAnimationWidget exteneds AnimatedWidget{
+   *            @override
+   *            Widget build(BuildContext context, State state){
+   *              super.build(context, _animatedWidgetState)
+   *            }
+   *          }
+   *       但是这样很显然不合理，因为：
+   *       a: AnimatedWidget 的状态对象是 AnimatedWidget 内部实现细节，不应该暴露给外部。
+   *       b: 如果要将父类状态暴露给子类，那么必须得有一种传递机制，而做这一套传递机制是无意义的，因为父子类之间状态的传递和子类本身逻辑是无关的。
    */
   @override
   Widget build(BuildContext context) {
