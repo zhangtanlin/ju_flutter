@@ -1,5 +1,6 @@
 // 倒入 ui
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/2statefullWidget.dart';
 import 'package:ju_flutter/2statelessWidget.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
           'route_name': (context) => RouteName(), // 命名路由
           'show_echo': (context) => ShowEcho(),
           'child_get_parent': (context) => ChildGetParent(),
+          'counter_widget': (context) => CounterWidget(),
+          
           'route_name_param': (context) {
             return RouteNameParam(
                 text: ModalRoute.of(context).settings.arguments);
@@ -213,6 +216,14 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.black,
               onPressed: () {
                 Navigator.pushNamed(context, "child_get_parent");
+              },
+            ),
+            // 部件内 state 的生命周期
+            RaisedButton(
+              child: Text("点击查看部件 CounterWidget 生命周期"),
+              textColor: Colors.blue[900],
+              onPressed: () {
+                Navigator.pushNamed(context, "counter_widget");
               },
             ),
           ],
