@@ -27,6 +27,10 @@ class CounterWidget extends StatefulWidget {
 
 // 计数器（生命周期）
 class _CounterWidgetState extends State<CounterWidget> {
+
+  //定义一个globalKey, 由于 GlobalKey 要保持全局唯一性，我们使用静态变量存储。
+  static GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+
   int _counter;
 
   /*
@@ -77,11 +81,59 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     print('build');
     return Scaffold(
-        body: Center(
-            child: FlatButton(
-                child: Text('$_counter'),
-                // 点击后计数器自增
-                onPressed: () => setState(() => ++_counter))));
+        key: _globalKey, // 设置 GlobalKey 的 key
+        appBar: AppBar(
+          title: Text('StatefullWidget'),
+        ),
+        body: Center(child: Builder(builder: (context) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                  child: Text('$_counter'),
+                  textColor: Colors.red[900],
+                  // 点击后计数器自增
+                  onPressed: () => setState(() => ++_counter)),
+              RaisedButton(
+                child: Text("点击显示 SnackBar 部件"),
+                textColor: Colors.pink,
+                onPressed: () async {
+                  /**
+                   * 查找父级最近的Scaffold对应的ScaffoldState对象。
+                   * context 对象有一个 findAncestorStateOfType() 方法，
+                   * 该方法可以从当前节点沿着widget树向上查找指定类型的StatefulWidget对应的State对象。
+                   * 注意：
+                   * 如果 StatefullWidget 的状态是私有的（不应该向外暴露），那么我们的代码中就不应该去直接获取其 state 对象，如果 StatefullWidget 的状态是希望暴露出的（通常还有一些组件的操作方法）我们则可以去直接获取其 state 对象。
+                   * 但是通过 context.findAncestorStateOfType获取 StatefullWidget 的状态的方法是通用的，我们并不能在语法层面指定 statefullWidet 的状态是否私有，所以在flutter 开发中便有了一个默认的约定：
+                   * 如果 StatefullWidget 的状态时希望暴露的，应当在 StatefullWidget 中提供一个 of 静态方法来获取其 State 对象，开发者便可直接通过该方法来获取。
+                   * 如果 State 不希望暴露，则不提供 of 方法，这个约定在 flutter SDK 里随处可见。
+                   */
+                  // 方法一：
+                  // ScaffoldState _state =
+                  //     context.findAncestorStateOfType<ScaffoldState>();
+                  // _state.showSnackBar(SnackBar(
+                  //     content: Text(
+                  //         '我是 SnackBar 部件'))); //调用ScaffoldState的showSnackBar来弹出SnackBar
+                  // 方法二：（等价于上面的方法）
+                  // ScaffoldState _state = Scaffold.of(context);
+                  // _state
+                  //     .showSnackBar(SnackBar(content: Text('我是 SnackBar 部件')));
+                  /**
+                   * 方法三：（通过GlobalKey来获取 State 对象的方法）
+                   * GlobalKey 是 Flutter 提供的一种在整个APP中引用element的机制。
+                   * 如果一个widget设置了GlobalKey，那么我们便可以通过globalKey.currentWidget获得该widget对象、
+                   * globalKey.currentElement来获得widget对应的element对象，如果当前widget是StatefulWidget，
+                   * 则可以通过globalKey.currentState来获得该widget对应的state对象。
+                   * 注意：GlobalKey开销较大，如果有其他可选方案，应尽量避免使用它。另外同一个GlobalKey在整个widget树中必须是唯一的，不能重复。
+                   */
+                  ScaffoldState _state = _globalKey.currentState;
+                  _state
+                      .showSnackBar(SnackBar(content: Text('我是 SnackBar 部件')));
+                },
+              ),
+            ],
+          );
+        })));
   }
 
   /*
