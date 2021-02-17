@@ -251,11 +251,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, "cupertino_list");
               },
             ),
-
-
-
-
-
           ],
         ),
       ),
