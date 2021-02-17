@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ju_flutter/2statefullWidget.dart';
 import 'package:ju_flutter/2statelessWidget.dart';
 import 'package:ju_flutter/3widgets.dart';
+import 'package:ju_flutter/4cupertino.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
 void main() {
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           'child_get_parent': (context) => ChildGetParent(),
           'counter_widget': (context) => CounterWidget(),
           'widget_list': (context) => WidgetList(),
+          'cupertino_list': (context) => CupertinoList(),
           'route_name_param': (context) {
             return RouteNameParam(
                 text: ModalRoute.of(context).settings.arguments);
@@ -241,6 +243,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, "widget_list");
               },
             ),
+            // flutter Cupertino ui 的部件介绍
+            RaisedButton(
+              child: Text("flutter Cupertino ui 的部件介绍"),
+              textColor: Colors.deepPurple[900],
+              onPressed: () {
+                Navigator.pushNamed(context, "cupertino_list");
+              },
+            ),
+
+
+
+
+
           ],
         ),
       ),
