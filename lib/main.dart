@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:ju_flutter/2statefullWidget.dart';
 import 'package:ju_flutter/2statelessWidget.dart';
+import 'package:ju_flutter/3widgets.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
 void main() {
@@ -19,7 +20,13 @@ class MyApp extends StatelessWidget {
   @override // 指出该函数在祖先类中定义过的（继承来的），但是正在被重新定义以在当前类中执行其他操作。它还用于注释抽象方法的实现。它是可选的，建议使用，可以提高可读性。
   // 部件开始构建
   Widget build(BuildContext context) {
-    // MaterialUI库中提供的UI架构
+    /**
+     * MaterialUI库中提供的UI架构。
+     * flutter 提供了一套丰富的 Material 部件，他可以帮助我们构建遵循 Material Design 设计规范，
+     * Material 应用程序以 MaterialApp 部件开始，该部件在应用程序的根部创建一些必要的部件，比如 Theme 部件用于配置应用主题。
+     * 是否使用 MaterialApp完全是可选的，但是使用它是一个很好的做法，我们已经使用了多个 Material 部件，例如：
+     * Scaffold,AppBar,FlatButton等，注意要使用Material 部件，需要先引入它： import 'package:flutter/material.dart';
+     */
     return MaterialApp(
         title: 'Flutter 示例',
         theme: ThemeData(
@@ -36,7 +43,7 @@ class MyApp extends StatelessWidget {
           'show_echo': (context) => ShowEcho(),
           'child_get_parent': (context) => ChildGetParent(),
           'counter_widget': (context) => CounterWidget(),
-          
+          'widget_list': (context) => WidgetList(),
           'route_name_param': (context) {
             return RouteNameParam(
                 text: ModalRoute.of(context).settings.arguments);
@@ -224,6 +231,14 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.blue[900],
               onPressed: () {
                 Navigator.pushNamed(context, "counter_widget");
+              },
+            ),
+            // flutter SDK内置部件介绍
+            RaisedButton(
+              child: Text("点击查看 flutter SDK 内置部件介绍"),
+              textColor: Colors.amber[900],
+              onPressed: () {
+                Navigator.pushNamed(context, "widget_list");
               },
             ),
           ],
