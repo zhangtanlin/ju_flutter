@@ -95,6 +95,7 @@ class WidgetList2 extends StatelessWidget {
                 double                 minWidth,                // 最小宽
                 double                 hight,                   // 高度
               })
+              详细参数，参考文档地址：https://www.jianshu.com/p/f851f045f81c
              */
             RaisedButton(
               color: Colors.blue, // 可以设置背景色
