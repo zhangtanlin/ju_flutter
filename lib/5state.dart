@@ -92,7 +92,7 @@ class ChildA extends StatelessWidget {
       child: new Container(
         child: new Center(
           child: new Text(
-            active ? '执行（颜色为绿色）': '色为灰色）',
+            active ? '执行（颜色为绿色）': '未执行（颜色为灰色）',
             style: new TextStyle(fontSize: 32.0, color: Colors.white),
           )
         ),
