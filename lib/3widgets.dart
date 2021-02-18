@@ -15,6 +15,55 @@ class WidgetList extends StatelessWidget {
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // Text部件(基础使用方法)
+              Text('Text部件(基础使用方法)'),
+              Text(
+                'Text部件(控制最大行数为2，超出使用省略号显示)' * 4,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                'Text部件(放大字体1.5倍)',
+                textScaleFactor:
+                    1.5, // 该属性的默认值可以通过 MediaQueryData.textScaleFactor 获得，如果没有 MediaQuery 默认值将为1.0
+              ),
+              Text(
+                'Text部件(修改字体样式)',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 18.0,
+                    height: 1.2, // 行高，并不是一个绝对值，具体的行高等于 fontSize * height。
+                    fontFamily: 'Courier',
+                    background: new Paint()..color = Colors.yellow,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.dashed),
+              ),
+              Text.rich(
+                  // 通过 Text.rich 方法将 TextSpan 添加到 Text 中，之所以可以这样做，是因为 Text 其实就是 TichText的一个包装，而RichText是可以显示多种样式(富文本)的Widget。
+                  TextSpan(children: [
+                TextSpan(text: '第一部分', style: TextStyle(color: Colors.red)),
+                TextSpan(
+                  text: 'www.google.com',
+                  // recognizer: _tapRecognizer // 是点击链接后的一个处理器(代码省略)，关于手势识别的更多内容，后面补充。
+                ),
+                TextSpan(
+                  text: '第二部分',
+                  style: TextStyle(color: Colors.purple),
+                  // recognizer: _tapRecognizer // 是点击链接后的一个处理器(代码省略)，关于手势识别的更多内容，后面补充。
+                )
+              ])),
+              // 文本样式的继承
+              DefaultTextStyle(
+                style: TextStyle(color: Colors.green[800], fontSize: 20.0),
+                textAlign: TextAlign.right,
+                child: Column(children: <Widget>[
+                  Text('颜色和字体继承自默认样式'),
+                  Text(
+                    '颜色和字体不继承默认样式',
+                    style: TextStyle(fontSize: 12.0, color: Colors.yellow[900]),
+                  )
+                ]),
+              ),
               /*
             * Row、Column这些具有弹性空间的布局类部件可在水平（Row）和垂直（Column）方向上创建灵活的布局。
             * 其设计是基于Web开发中的Flexbox布局模型。
