@@ -102,27 +102,28 @@ class WidgetList2 extends StatelessWidget {
               splashColor: Colors.grey,
               child: Text("蓝色背景+点击背景为红色+圆角按钮+漂浮按钮"),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)
-                  ),
+                  borderRadius: BorderRadius.circular(20.0)),
               onPressed: () {},
             ),
             FlatButton(
               textColor: Colors.red,
-              highlightColor: Color(0x000000),// 按下时-背景色
-              splashColor: Color(0x000000),   // 按下时-水波动画为透明
+              highlightColor: Color(0x000000), // 按下时-背景色
+              splashColor: Color(0x000000), // 按下时-水波动画为透明
               child: Text("透明背景+点击背景透明+圆角按钮+红色文字+扁平按钮"),
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
               onPressed: () {},
             ),
             OutlineButton(
               color: Colors.orange[900],
               textColor: Colors.green,
-              highlightColor: Color(0x000000),// 按下时-背景色
-              splashColor: Color(0x000000),   // 按下时-水波动画为透明
-              borderSide:new BorderSide(color: Colors.black), // 边框颜色
-              highlightedBorderColor: Colors.red,             // 按下时-边框颜色
+              highlightColor: Color(0x000000), // 按下时-背景色
+              splashColor: Color(0x000000), // 按下时-水波动画为透明
+              borderSide: new BorderSide(color: Colors.black), // 边框颜色
+              highlightedBorderColor: Colors.red, // 按下时-边框颜色
               child: Text("透明背景+按下透明效果+圆角按钮+红色文字+扁平按钮"),
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
               onPressed: () {},
             )
           ]),
