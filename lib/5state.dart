@@ -68,10 +68,7 @@ class _ParentWidgetState extends State<ParentState> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new ChildA(
-        active: _active,
-        onChange: _handleStateChange
-      ),
+      child: new ChildA(active: _active, onChange: _handleStateChange),
     );
   }
 }
@@ -88,20 +85,111 @@ class ChildA extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _handle,
-      child: new Container(
-        child: new Center(
-          child: new Text(
-            active ? '执行（颜色为绿色）': '未执行（颜色为灰色）',
+        onTap: _handle,
+        child: new Container(
+          child: new Center(
+              child: new Text(
+            active ? '执行（颜色为绿色）' : '未执行（颜色为灰色）',
             style: new TextStyle(fontSize: 32.0, color: Colors.white),
-          )
-        ),
-        width: 200.0,
-        height: 200.0,
-        decoration: new BoxDecoration(
-          color: active ? Colors.lightGreen[700]: Colors.grey[600],
-        ),
-      )
+          )),
+          width: 200.0,
+          height: 200.0,
+          decoration: new BoxDecoration(
+            color: active ? Colors.lightGreen[700] : Colors.grey[600],
+          ),
+        ));
+  }
+}
+
+/*
+ * 混合状态管理
+ * 对于一些部件来说，混合管理方式非常有用，部件自身管理一些状态，而父部件管理一些其他外部状态。
+ * 例如：手指按下时，盒子周围会出现一个深绿色的边框，抬起时边框消失，点击完成后，盒子的颜色改变，子部件将其状态导入到父部件，但是内部管理其状态。
+ */
+class Mixingwidget extends StatefulWidget {
+  @override
+  _MixingwidgetState createState() => new _MixingwidgetState();
+}
+
+class _MixingwidgetState extends State<Mixingwidget> {
+  bool _active = false;
+  void _handle(bool newValue) {
+    setState(() {
+      _active = newValue;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new ChildB(
+        active: _active,
+        onChange: _handle,
+      ),
+    );
+  }
+}
+
+class ChildB extends StatefulWidget {
+  ChildB({Key key, this.active: false, @required this.onChange})
+      : super(key: key);
+  final bool active;
+  final onChange;
+
+  @override
+  _ChildBState createState() => new _ChildBState();
+}
+
+class _ChildBState extends State<ChildB> {
+  bool _highLight = false;
+  void _handleDown(TapDownDetails details) {
+    // 不懂这两个参数是啥意思，如果不加参数下面的调用会报错
+    setState(() {
+      _highLight = true;
+    });
+  }
+
+  void _handleUp(TapUpDetails details) {
+    setState(() {
+      _highLight = false;
+    });
+  }
+
+  void _handleCancel() {
+    setState(() {
+      _highLight = false;
+    });
+  }
+
+  void _handle() {
+    widget.onChange(!widget.active);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 在按下时添加绿色边框，当抬起时取消高亮
+    return new GestureDetector(
+      onTapDown: _handleDown, // 按下事件
+      onTapUp: _handleUp, // 抬起事件
+      onTap: _handle, // 点击过后
+      onTapCancel: _handleCancel,
+      child: new Container(
+          child: new Center(
+            child: new Text(
+              widget.active ? '执行（颜色为绿色）' : '未执行（颜色为灰色）',
+              style: new TextStyle(fontSize: 32.0, color: Colors.white),
+            ),
+          ),
+          width: 200.0,
+          height: 200.0,
+          decoration: new BoxDecoration(
+            color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+            border: _highLight ? new Border.all(
+              color: Colors.teal[700],
+              width: 10.0
+            ) : null
+          ),  
+      ),
     );
   }
 }

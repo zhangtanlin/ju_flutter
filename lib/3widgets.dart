@@ -72,6 +72,15 @@ class WidgetList extends StatelessWidget {
                     return ParentState();
                   }));
                 },
+              ),
+              // 点击查看混合管理管理State 状态
+              OutlineButton(
+                child: Text('点击查看混合管理管理State 状态'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Mixingwidget();
+                  }));
+                },
               )
             ]));
   }
