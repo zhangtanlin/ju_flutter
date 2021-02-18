@@ -11,7 +11,8 @@ class CupertinoList extends StatelessWidget {
       child: Center(
         child: CupertinoButton(
           color: CupertinoColors.activeGreen,
-          child: Text('cupertino 的按钮')
+          child: Text('cupertino 的按钮'),
+          onPressed: (){},
         )
       ),
     );
