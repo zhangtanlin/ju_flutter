@@ -66,3 +66,11 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   # 软件包字体相关的详细信息，查看 https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: CustomizeIcon
+      fonts:
+        - asset: assets/fonts/icomoon.eot
+        - asset: assets/fonts/icomoon.svg
+        - asset: assets/fonts/icomoon.ttf
+        - asset: assets/fonts/icomoon.woff
+          weight: 500
