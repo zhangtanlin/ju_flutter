@@ -69,8 +69,8 @@ flutter:
   fonts:
     - family: CustomizeIcon
       fonts:
-        - asset: assets/fonts/icomoon.eot
-        - asset: assets/fonts/icomoon.svg
-        - asset: assets/fonts/icomoon.ttf
-        - asset: assets/fonts/icomoon.woff
+        - asset: assets/fonts/fonts/icomoon.eot
+        - asset: assets/fonts/fonts/icomoon.svg
+        - asset: assets/fonts/fonts/icomoon.ttf
+        - asset: assets/fonts/fonts/icomoon.woff
           weight: 500
