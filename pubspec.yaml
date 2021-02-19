@@ -44,7 +44,7 @@ flutter:
   # 注意2：构建期间，Flutter 将 asset 放置到称为 asset bundle 的特殊存档中，应用程序可以在运行时读取它们（但不能修改）。
   # 参考文档： https://github.com/flutterchina/flutter-in-action/blob/master/docs/chapter2/flutter_assets_mgr.md
   assets:
-    - images/bg.jpg
+    - assets/images/bg.jpg
   #   - images/a_dot_ham.jpeg
   # 一个图片资源可以引用一个或者多个特定分辨率的变体
   # 文档查看 https://flutter.dev/assets-and-images/#resolution-aware
