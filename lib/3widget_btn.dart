@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:ju_flutter/5state.dart';
 
-class WidgetList2 extends StatelessWidget {
+class WidgetBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

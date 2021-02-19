@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:ju_flutter/2statefullWidget.dart';
 import 'package:ju_flutter/2statelessWidget.dart';
-import 'package:ju_flutter/3widgets.dart';
+import 'package:ju_flutter/3widget_text.dart';
 import 'package:ju_flutter/4cupertino.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           'show_echo': (context) => ShowEcho(),
           'child_get_parent': (context) => ChildGetParent(),
           'counter_widget': (context) => CounterWidget(),
-          'widget_list': (context) => WidgetList(),
+          'widget_text': (context) => WidgetText(),
           'cupertino_list': (context) => CupertinoList(),
           'route_name_param': (context) {
             return RouteNameParam(
@@ -240,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("点击查看 flutter SDK 内置部件介绍"),
               textColor: Colors.amber[900],
               onPressed: () {
-                Navigator.pushNamed(context, "widget_list");
+                Navigator.pushNamed(context, "widget_text");
               },
             ),
             // flutter Cupertino ui 的部件介绍

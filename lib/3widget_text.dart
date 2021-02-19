@@ -2,9 +2,9 @@
  * flutter SDK 内置部件介绍
  */
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widgets-1.dart';
+import 'package:ju_flutter/3widget_btn.dart';
 
-class WidgetList extends StatelessWidget {
+class WidgetText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +109,7 @@ class WidgetList extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return WidgetList2(); // 点击查看按钮及更多的部件
+                      return WidgetBtn(); // 点击查看按钮及更多的部件
                     }));
                   },
                 ),
