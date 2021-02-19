@@ -2,6 +2,7 @@
  * flutter SDK 内置部件介绍
  */
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/3widget_img.dart';
 import 'package:ju_flutter/5state.dart';
 
 class WidgetBtn extends StatelessWidget {
@@ -9,7 +10,7 @@ class WidgetBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('flutter SDK内置部件库介绍2'),
+          title: Text('flutter SDK内置部件库介绍'),
         ),
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
@@ -126,7 +127,16 @@ class WidgetBtn extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)),
               onPressed: () {},
-            )
+            ),
+            OutlineButton(
+              child: Text('点击查看图片及更多的部件'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  return WidgetImg(); // 点击查看图片及更多的部件
+                }));
+              },
+            ),
           ]),
         ));
   }
