@@ -96,23 +96,25 @@ class WidgetImg extends StatelessWidget {
                 ),
                 Icon(IconData(0xe90a,
                     fontFamily: 'CustomizeIcon', matchTextDirection: true)),
-                Row(children: [
-                  Icon(MyCustomizeIcon.back, color: Colors.red),
-                  Icon(MyCustomizeIcon.exit, color: Colors.green),
-                  Icon(MyCustomizeIcon.triangleDown, color: Colors.blue),
-                  Icon(MyCustomizeIcon.address, color: Colors.orange),
-                  Icon(MyCustomizeIcon.check, color: Colors.pink),
-                  Icon(MyCustomizeIcon.close, color: Colors.lightBlueAccent),
-                  Icon(MyCustomizeIcon.phone, color: Colors.lightGreen),
-                  Icon(MyCustomizeIcon.triangleTop, color: Colors.yellow),
-                  Icon(MyCustomizeIcon.add, color: Colors.amber[900]),
-                  Icon(MyCustomizeIcon.less, color: Colors.cyan),
-                  Icon(MyCustomizeIcon.edit, color: Colors.blueAccent),
-                  Icon(MyCustomizeIcon.home, color: Colors.green),
-                  Icon(MyCustomizeIcon.search, color: Colors.deepOrange),
-                  Icon(MyCustomizeIcon.user, color: Colors.teal),
-                  Icon(MyCustomizeIcon.menu, color: Colors.blue),
-                ],),
+                Row(
+                  children: [
+                    Icon(MyCustomizeIcon.back, color: Colors.red),
+                    Icon(MyCustomizeIcon.exit, color: Colors.green),
+                    Icon(MyCustomizeIcon.triangleDown, color: Colors.blue),
+                    Icon(MyCustomizeIcon.address, color: Colors.orange),
+                    Icon(MyCustomizeIcon.check, color: Colors.pink),
+                    Icon(MyCustomizeIcon.close, color: Colors.lightBlueAccent),
+                    Icon(MyCustomizeIcon.phone, color: Colors.lightGreen),
+                    Icon(MyCustomizeIcon.triangleTop, color: Colors.yellow),
+                    Icon(MyCustomizeIcon.add, color: Colors.amber[900]),
+                    Icon(MyCustomizeIcon.less, color: Colors.cyan),
+                    Icon(MyCustomizeIcon.edit, color: Colors.blueAccent),
+                    Icon(MyCustomizeIcon.home, color: Colors.green),
+                    Icon(MyCustomizeIcon.search, color: Colors.deepOrange),
+                    Icon(MyCustomizeIcon.user, color: Colors.teal),
+                    Icon(MyCustomizeIcon.menu, color: Colors.blue),
+                  ],
+                ),
                 OutlineButton(
                   child: Text('点击查看单选/复选框及更多的部件'),
                   onPressed: () {
@@ -130,48 +132,48 @@ class WidgetImg extends StatelessWidget {
 // 自定义图标
 class MyCustomizeIcon {
   // 返回
-  static const IconData back =
-      const IconData(0xe90e, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData back = const IconData(0xe90e,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 退出
-  static const IconData exit =
-      const IconData(0xe90d, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData exit = const IconData(0xe90d,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 倒三角
-  static const IconData triangleDown =
-      const IconData(0xe90c, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData triangleDown = const IconData(0xe90c,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 地址
-  static const IconData address =
-      const IconData(0xe907, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData address = const IconData(0xe907,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 勾选
-  static const IconData check =
-      const IconData(0xe908, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData check = const IconData(0xe908,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 关闭
-  static const IconData close =
-      const IconData(0xe909, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData close = const IconData(0xe909,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 电话
-  static const IconData phone =
-      const IconData(0xe90a, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData phone = const IconData(0xe90a,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 正三角
-  static const IconData triangleTop =
-      const IconData(0xe90b, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData triangleTop = const IconData(0xe90b,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 加
-  static const IconData add =
-      const IconData(0xe901, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData add = const IconData(0xe901,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 减
-  static const IconData less =
-      const IconData(0xe904, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData less = const IconData(0xe904,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 编辑
-  static const IconData edit =
-      const IconData(0xe902, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData edit = const IconData(0xe902,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 首页
-  static const IconData home =
-      const IconData(0xe903, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData home = const IconData(0xe903,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 搜索
-  static const IconData search =
-      const IconData(0xe905, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData search = const IconData(0xe905,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 用户
-  static const IconData user =
-      const IconData(0xe906, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData user = const IconData(0xe906,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
   // 菜单
-  static const IconData menu =
-      const IconData(0xe900, fontFamily: 'CustomizeIcon', matchTextDirection: true);
+  static const IconData menu = const IconData(0xe900,
+      fontFamily: 'CustomizeIcon', matchTextDirection: true);
 }
