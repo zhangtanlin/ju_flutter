@@ -2,14 +2,13 @@
  * flutter SDK 内置部件介绍
  */
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_form.dart';
 
-class WidgetCheckbox extends StatefulWidget {
+class WidgetForm extends StatefulWidget {
   @override
-  _WidgetCheckboxState createState() => new _WidgetCheckboxState();
+  _WidgetFormState createState() => new _WidgetFormState();
 }
 
-class _WidgetCheckboxState extends State<WidgetCheckbox> {
+class _WidgetFormState extends State<WidgetForm> {
   bool _switchSelected = true; // 单选框状态
   bool _checkboxSelected = true; // 复选框状态
   @override
@@ -53,14 +52,6 @@ class _WidgetCheckboxState extends State<WidgetCheckbox> {
                       _checkboxSelected = value;
                     });
                   }),
-              OutlineButton(
-                child: Text('点击查看输入框/表单及更多的部件'),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetForm(); // 点击查看输入框/表单及更多的部件
-                  }));
-                },
-              ),
             ])));
   }
 }
