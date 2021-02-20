@@ -13,11 +13,11 @@ class _WidgetFormState extends State<WidgetForm> {
   final TextEditingController _myControllerPwd = TextEditingController();
   /*
    * 年龄的 Textfield 是否获得焦点
-   * FocusNode 管理焦点，代表焦点控制范围。
+   * FocusNode 管理焦点，代表焦点控制范围；FocusNode 继承自 ChangeNotifier,通过 FocusNode 可以监听焦点的改变事件。
    * 通过 focusScopeNode 在输入框之间移动焦点，设置默认焦点。
    * 可以通过 FocusScope.of(context) 来获取 Widget 树中默认 FocusScopeNode。
    */
-  final ageGetFocus = new FocusNode();
+  final ageGetFocus = new FocusNode(); // 创建 focusNode
   FocusScopeNode focusScopeNode;
 
   @override
@@ -90,6 +90,18 @@ class _WidgetFormState extends State<WidgetForm> {
                     labelText: '年龄',
                     hintText: "请输入年龄",
                     prefixIcon: Icon(Icons.looks_6_outlined)),
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "失去焦点下划线为红色,获得焦点下划线为绿色",
+                  prefixIcon: Icon(Icons.location_history_sharp),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red), // 失去焦点下划线设为红色
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green), // 获得焦点下划线设为绿色
+                  ),
+                ),
               ),
               FlatButton(
                 color: Colors.amber,
