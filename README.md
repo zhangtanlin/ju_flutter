@@ -16,6 +16,9 @@
   >5. **dev_dependencies**：开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）。
   >6. **flutter**：flutter 相关的配置选项。
 
+## flutter 相关操作
+1. 更新到指定版本，例如更新到 v1.22.5 : flutter upgrade v1.22.5
+
 ## 克隆之后需要执行的操作
 1. 检查 flutter 是否正确安装，若没正确安装，自己找资料解决<br>
     ### 使用**flutter doctor**检查 flutter 是否已正确安装
