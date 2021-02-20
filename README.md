@@ -17,7 +17,10 @@
   >6. **flutter**：flutter 相关的配置选项。
 
 ## flutter 相关操作
-1. 更新到指定版本，例如更新到 v1.22.5 : flutter upgrade v1.22.5
+1. sdk降级、回退、升级降级到指定的版本方法: 
+  >到flutter sdk所在的目录下(自己找 flutter 的安装目录到 flutter 文件夹里面那一层即可)执行 ：
+  >git reset --hard fabeb2a16f1d008ab8230f450c49141d35669798
+  >fabeb2a16f1d008ab8230f450c49141d35669798 字符串是commit版本号如下，可以到Flutter Git源码里面去找https://github.com/flutter/flutter（Releas--tags--找到具体的版本号，点击--fabeb2a即可看到commit号）
 
 ## 克隆之后需要执行的操作
 1. 检查 flutter 是否正确安装，若没正确安装，自己找资料解决<br>
