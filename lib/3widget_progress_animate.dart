@@ -2,6 +2,7 @@
  * flutter SDK 内置部件介绍
  */
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/3widget_layout.dart';
 
 class WidgetProgressAimate extends StatefulWidget {
   @override
@@ -51,11 +52,11 @@ class _WidgetProgressAimateState extends State<WidgetProgressAimate>
             ),
           ),
           OutlineButton(
-            child: Text('点击查看进度指示器-进度色动画及更多的部件'),
+            child: Text('点击查看线性布局及更多的部件'),
             textColor: Colors.red,
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return WidgetProgressAimate(); // 点击查看进度指示器-进度色动画及更多的部件
+                return WidgetLayout(); // 点击查看线性布局及更多的部件
               }));
             },
           ),
