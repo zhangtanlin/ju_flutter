@@ -2,7 +2,7 @@
  * flutter SDK 内置部件介绍
  */
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_form.dart';
+import 'package:ju_flutter/3widget_textfield.dart';
 
 class WidgetCheckbox extends StatefulWidget {
   @override
@@ -57,7 +57,7 @@ class _WidgetCheckboxState extends State<WidgetCheckbox> {
                 child: Text('点击查看输入框/表单及更多的部件'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetForm(); // 点击查看输入框/表单及更多的部件
+                    return WidgetTextField(); // 点击查看输入框
                   }));
                 },
               ),
