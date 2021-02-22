@@ -2,14 +2,13 @@
  * flutter SDK 内置部件介绍
  */
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_progress.dart';
 
-class WidgetForm extends StatefulWidget {
+class WidgetProgress extends StatefulWidget {
   @override
-  _WidgetFormState createState() => new _WidgetFormState();
+  _WidgetProgressState createState() => new _WidgetProgressState();
 }
 
-class _WidgetFormState extends State<WidgetForm> {
+class _WidgetProgressState extends State<WidgetProgress> {
   /*
    * Form 部件相关参数
    * _formNameController Form表单用户名的 controller 方法
@@ -92,8 +91,8 @@ class _WidgetFormState extends State<WidgetForm> {
                                 onPressed: () {
                                   /**
                                    * 注意：这里不能通过 Form.of(context) 方法获取，此处会得到 null。
-                                   * 原因是：此处的 context 为 WidgetForm 的 context，而 Form.of(context) 是根据所指定的 context 向根去查找，
-                                   * 而 FormState 是在 WidgetForm 的子树中，所以不行。
+                                   * 原因是：此处的 context 为 WidgetProgress 的 context，而 Form.of(context) 是根据所指定的 context 向根去查找，
+                                   * 而 FormState 是在 WidgetProgress 的子树中，所以不行。
                                    * 正确的做法是通过 Build来构建登陆按钮，Build 会将 widget 节点的 context 作为回调函数(参考下一个 Expanded 的写法)。
                                    * 注意：context 正是操作 Widget 所对应的 Element 的一个接口，由于 Widget 树对应的 Element 都是不同的，
                                    * 所以 context 也都是不同的，有关 context 的更多内容后面补充。
@@ -129,15 +128,7 @@ class _WidgetFormState extends State<WidgetForm> {
                     ),
                   ],
                 ),
-              ),
-              OutlineButton(
-                child: Text('点击查看进度指示器及更多的部件'),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetProgress(); // 点击查看进度指示器
-                  }));
-                },
-              ),
+              )
             ])));
   }
 }
