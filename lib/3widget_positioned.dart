@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_positioned.dart';
 
-class WidgetFlow extends StatefulWidget {
+class WidgetPositioned extends StatefulWidget {
   @override
-  _WidgetFlowState createState() => new _WidgetFlowState();
+  _WidgetPositionedState createState() => new _WidgetPositionedState();
 }
 
-class _WidgetFlowState extends State<WidgetFlow> {
+class _WidgetPositionedState extends State<WidgetPositioned> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
