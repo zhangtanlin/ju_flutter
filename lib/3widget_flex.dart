@@ -33,8 +33,15 @@ class _WidgetFlexState extends State<WidgetFlex> {
               Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
-                  Text('弹性布局1'),
-                  Text('弹性布局2')
+                  Text('弹性水平布局1'),
+                  Text('弹性水平布局2')
+                ],
+              ),
+              Flex(
+                direction: Axis.vertical,
+                children: <Widget>[
+                  Text('弹性垂直布局1'),
+                  Text('弹性垂直布局2')
                 ],
               ),
               /**
