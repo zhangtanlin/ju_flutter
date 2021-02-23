@@ -17,6 +17,7 @@
  * 也就是说对于布局类部件来说，对于布局部件来说，其布局算法都是通过对应的 RenderObject 对象来实现的。
  */
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/3widget_flex.dart';
 
 /*
  * 
@@ -68,7 +69,8 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                   })
                 */
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // 测试Row对齐方式，排除Column默认居中对齐的干扰
+                crossAxisAlignment:
+                    CrossAxisAlignment.start, // 测试Row对齐方式，排除Column默认居中对齐的干扰
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -98,7 +100,10 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     textDirection: TextDirection.ltr,
                     children: <Widget>[
-                      Text('one', style: TextStyle(fontSize: 30.0),),
+                      Text(
+                        'one',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
                       Text('two'),
                       Text('three'),
                     ],
@@ -107,7 +112,10 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
-                      Text('one', style: TextStyle(fontSize: 30.0),),
+                      Text(
+                        'one',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
                       Text('two'),
                       Text('three'),
                     ],
@@ -116,7 +124,10 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     textDirection: TextDirection.ltr,
                     children: <Widget>[
-                      Text('one', style: TextStyle(fontSize: 30.0),),
+                      Text(
+                        'one',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
                       Text('two'),
                       Text('three'),
                     ],
@@ -125,7 +136,10 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
-                      Text('one', style: TextStyle(fontSize: 30.0),),
+                      Text(
+                        'one',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
                       Text('two'),
                       Text('three'),
                     ],
@@ -133,16 +147,28 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('first', style: TextStyle(fontSize: 30.0),),
-                      Text('second', style: TextStyle(fontSize: 20.0),),
+                      Text(
+                        'first',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
+                      Text(
+                        'second',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
                       Text('third'),
                     ],
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Text('first', style: TextStyle(fontSize: 30.0),),
-                      Text('second', style: TextStyle(fontSize: 20.0),),
+                      Text(
+                        'first',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
+                      Text(
+                        'second',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
                       Text('third'),
                     ],
                   ),
@@ -163,14 +189,13 @@ class _WidgetLayoutState extends State<WidgetLayout> {
               ),
               ConstrainedBox(
                 constraints: BoxConstraints(
-                  minWidth: double.infinity // 将minWidth设为double.infinity，可以使宽度占用尽可能多的空间
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Text('垂直1'),
-                    Text('垂直2'),
-                  ]
-                ),
+                    minWidth: double
+                        .infinity // 将minWidth设为double.infinity，可以使宽度占用尽可能多的空间
+                    ),
+                child: Column(children: <Widget>[
+                  Text('垂直1'),
+                  Text('垂直2'),
+                ]),
               ),
               Container(
                 height: 200.0,
@@ -184,7 +209,7 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                       Container(
                         color: Colors.red,
                         child: Column(
-                          mainAxisSize: MainAxisSize.max, // 无效，内层 Colum 高度为实际高度  
+                          mainAxisSize: MainAxisSize.max, // 无效，内层 Colum 高度为实际高度
                           children: <Widget>[
                             Text("hello world "),
                             Text("I am Jack "),
@@ -196,7 +221,8 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                         child: Container(
                           color: Colors.red,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center, // 垂直方向居中对齐
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // 垂直方向居中对齐
                             children: <Widget>[
                               Text("1111"),
                               Text("I am Jack "),
@@ -209,10 +235,10 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                 ),
               ),
               OutlineButton(
-                child: Text('点击查看进度指示器-进度色动画及更多的部件'),
+                child: Text('点击查看弹性布局及更多的部件'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetLayout(); // 点击查看进度指示器-进度色动画及更多的部件
+                    return WidgetFlex(); // 点击查看弹性布局及更多的部件
                   }));
                 },
               ),
