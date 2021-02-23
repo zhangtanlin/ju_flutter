@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_align.dart';
 
-class WidgetPositioned extends StatefulWidget {
+class WidgetAlign extends StatefulWidget {
   @override
-  _WidgetPositionedState createState() => new _WidgetPositionedState();
+  _WidgetAlignState createState() => new _WidgetAlignState();
 }
 
-class _WidgetPositionedState extends State<WidgetPositioned> {
+class _WidgetAlignState extends State<WidgetAlign> {
   @override
   Widget build(BuildContext context) {
     // 通过 ConstrainedBox来确保Stack占满全屏
