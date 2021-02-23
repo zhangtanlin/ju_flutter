@@ -79,14 +79,10 @@ class _WidgetFlowState extends State<WidgetFlow> {
                 children: <Widget>[
                   new Container(
                       width: 80.0, height: 80.0, color: Colors.amberAccent),
-                  new Container(
-                      width: 80.0, height: 80.0, color: Colors.red),
-                  new Container(
-                      width: 80.0, height: 80.0, color: Colors.green),
-                  new Container(
-                      width: 80.0, height: 80.0, color: Colors.blue),
-                  new Container(
-                      width: 80.0, height: 80.0, color: Colors.pink),
+                  new Container(width: 80.0, height: 80.0, color: Colors.red),
+                  new Container(width: 80.0, height: 80.0, color: Colors.green),
+                  new Container(width: 80.0, height: 80.0, color: Colors.blue),
+                  new Container(width: 80.0, height: 80.0, color: Colors.pink),
                 ],
               ),
               OutlineButton(
@@ -130,10 +126,12 @@ class TestFlowDelegate extends FlowDelegate {
       }
     }
   }
+
   @override
   Size getSize(BoxConstraints constraints) {
     return Size(double.infinity, 200.0);
   }
+
   @override
   bool shouldRepaint(FlowDelegate oldDelegate) {
     return oldDelegate != this;
