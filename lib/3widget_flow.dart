@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_flow.dart';
 
-class WidgetFlex extends StatefulWidget {
+class WidgetFlow extends StatefulWidget {
   @override
-  _WidgetFlexState createState() => new _WidgetFlexState();
+  _WidgetFlowState createState() => new _WidgetFlowState();
 }
 
-class _WidgetFlexState extends State<WidgetFlex> {
+class _WidgetFlowState extends State<WidgetFlow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,10 +61,10 @@ class _WidgetFlexState extends State<WidgetFlex> {
                 ],
               ),
               OutlineButton(
-                child: Text('点击查看流式布局及更多的部件'),
+                child: Text('点击查看进度指示器-进度色动画及更多的部件'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetFlow();
+                    return WidgetFlow(); // 点击查看进度指示器-进度色动画及更多的部件
                   }));
                 },
               ),
