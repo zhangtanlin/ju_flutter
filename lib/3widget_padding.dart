@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_padding.dart';
 
-class WidgetAlign extends StatefulWidget {
+class WidgetPadding extends StatefulWidget {
   @override
-  _WidgetAlignState createState() => new _WidgetAlignState();
+  _WidgetPaddingState createState() => new _WidgetPaddingState();
 }
 
-class _WidgetAlignState extends State<WidgetAlign> {
+class _WidgetPaddingState extends State<WidgetPadding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,22 +133,10 @@ class _WidgetAlignState extends State<WidgetAlign> {
               DecoratedBox(
                   decoration: BoxDecoration(color: Colors.red),
                   child: Center(
-                    widthFactor:
-                        1, // 添加 widthFactor 和 heightFactor 效果一样，例如：Text 宽高为60，则Align的最终宽高都是 1*60=120
+                    widthFactor: 1, // 添加 widthFactor 和 heightFactor 效果一样，例如：Text 宽高为60，则Align的最终宽高都是 1*60=120
                     heightFactor: 1,
                     child: Text('xxxxxxx2'),
                   )),
-              Row(children: <Widget>[
-                OutlineButton(
-                  child: Text('点击查看填充容器及更多的部件'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return WidgetPadding();
-                    }));
-                  },
-                ),
-              ])
             ]));
   }
 }
