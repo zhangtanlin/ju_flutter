@@ -8,79 +8,135 @@ class WidgetAlign extends StatefulWidget {
 class _WidgetAlignState extends State<WidgetAlign> {
   @override
   Widget build(BuildContext context) {
-    // 通过 ConstrainedBox来确保Stack占满全屏
-    return ConstrainedBox(
-        constraints: BoxConstraints.expand(),
-        /**
-         * 层叠布局 Stack/Positioned
-         * 层叠布局和web中的绝对定位，andeoid中 的Frame 布局相似，子组建可以根据距父容器四个角的位置来确定自身的位置。
-         * 绝对定位允许子部件duidie起来（按照代码中声明的顺序）。flutter 中使用 Stack 和 Positioned 这两个部件来配合实现绝对定位。
-         * Stack 允许子部件堆叠，而 Positioned 用于根据 Stack 的四个角来确定子部件的位置。
-          Stack({
-            this.alignment = AlignmentDirectional.topStart, // 此参数决定如何去对齐没有定位（没有使用 Positioned）或部分定位的子部件，
-                                                                所谓部分定位，在这里特指没有在某一个轴上定位：left，right为横轴；top，bottom为纵轴，
-                                                                只要包含某个轴上的一个定位属性就算在该轴上有定位。
-            this.textDirection,                             // 和Row，Wap的textDirection功能一样，都用于确定alignment对齐的参考系，即
-                                                                textDirection的值为TextDirection.ltr,则alignment的start代表左，end代表右；
-                                                                textDirection的值为Textdirection.rtl,则alignment的start代表右，end代表左。
-            this.fit = StackFit.loose,                      // 此参数用于确定没有定位的子部件如何去适应Stack的大小。StackFit.loose表示使用子部件
-                                                                的大小，StackFit.expand表示扩伸到Stack的大小。
-                                                                注意：因为Stack是堆叠的，所以开启之后后面的元素可能会遮盖前面的元素，无论是否定位。
-            this.overflow = Overflow.clip,                  // 此属性决定如何显示超出Stack显示空间的子部件，值为 Overflow.clip时，超出部分会被裁剪，
-                                                                值为Overflow.visible 时则不会。
-            List<Widget> children = const <Widget>[],
-          })
-         * Positioned 参数详情：
-          const Positioned({
-            Key key,                // 
-            this.left,              // 距离 Stack 左边的距离
-            this.top,               // 距离 Stack 上边的距离
-            this.right,             // 距离 Stack 右边的距离
-            this.bottom,            // 距离 Stack 底边的距离
-            this.width,             // 用于指定需要定位元素的宽度和高度，注意：Positioned 的 width/height和其他地方的意义稍微有点区别，此处用于
-                                        配合 left/top/right/bottom 来定位部件。举个例子，在水平方向上，只能指定 left/right/width三个属性中的
-                                        两个，如指定left和width，right会自动算出来，如果同时指定3个属性值则会报错，垂直方向同理。
-            this.height,            // 
-            @required Widget child, // 
-          })
-         */
-        child: Stack(
-          alignment: Alignment.center, // 指定未定位或部分定位的Widget的对齐方式
-          // fit: StackFit.expand, // 指定未定位或部分定位的 Widget 延伸到 Stack 大小。【因为Stack是堆叠的所以开启之后那个未定位的Container会遮盖第一个定位的Positioned】
-          children: <Widget>[
-            Positioned(
-                left: 100.0,
-                child: Text('我是第一个Positioned',
-                    style:
-                        TextStyle(color: Colors.blueAccent, fontSize: 16.0))),
-            Container(
-                child: Text("我是未定位的",
-                    style: TextStyle(color: Colors.white, fontSize: 16.0)),
-                color: Colors.brown),
-            Positioned(
-                top: 100.0,
-                child: Text('我是第二个Positioned',
-                    style: TextStyle(color: Colors.green, fontSize: 16.0))),
-            Positioned(
-                top: 0,
-                right: 0,
-                child: Text('我是第三个Positioned',
-                    style: TextStyle(color: Colors.orange, fontSize: 16.0))),
-            Positioned(
-              bottom: 0,
-              child: OutlineButton(
-                child: Text('点击查看对齐与相对定位及更多的部件',
-                    style: TextStyle(
-                      color: Colors.red,
-                    )),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetAlign();
-                  }));
-                },
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('布局类部件'),
+        ),
+        body: Wrap(
+            spacing: 8.0,
+            runSpacing: 4.0,
+            alignment: WrapAlignment.center,
+            children: <Widget>[
+              /**
+               * 对齐与相对定位
+               * 如果简单调整一个子元素在父元素中的位置，可以根据子部件的宽高来确定自身的宽高。
+                Align({
+                  Key key,
+                  this.alignment = Alignment.center, // 表示子部件在父部件中的起始位置。Alignment，是一个抽象类，
+                                                        他有两个常用的子类：Alignment 和 FractionalOffset。
+                  this.widthFactor,                  // 用于确定 Align 部件本身宽高的属性；他们是两个缩放因子，会分别乘以元素的宽高，最终的结果就是
+                                                        Align 部件的宽高，如果值为 null 滋味儿部件的宽高将会占用尽可能多的空间。
+                  this.heightFactor,
+                  Widget child,
+                })
+                注意：Alignment 抽象类继承自 AlignmentGeometry ，表示矩形内的一个点，他有两个属性x/y，分别表示在水平和垂直方向的偏移。
+                     Alignment 部件会以矩形中心点作为坐标原点，即 Alignment(0.0, 0.0)。 
+                     x/y值从-1到1分别代表矩形左边到右边的距离和顶部到底边的距离，因此两个水平（或垂直）单位则等于矩形的宽（高），如：
+                     Alignment(-1.0, -1.0) 代表矩形的左侧顶点【topLeft】；
+                     Alignment(1.0, 1.0) 代表矩形的右侧底部终点【bottomRight】；
+                     Alignment(1.0, -1.0) 代表矩形的右侧顶点【topRight】；
+                     Alignment(-1.0, 1.0) 代表矩形的左侧底部终点【bottomLeft】。
+                     计算方式是：(Alignment.x * childWidth / 2 + childWidth / 2, Alignment.y * childHeight / 2 + childHeight / 2)
+               * Align 和 Stack 的对比：
+               * 相同点：都可以用于指定子元素相对于父元素的偏移。
+               * 不同点：
+               *    1)定位参考系统不同，Stack/Position 定位的参考系可以是父容器的四个顶点；而 Align 则需要先通过 alignment
+               *    参数来确定坐标原点，不同的 alignment 会对应不同原点，最终的偏移是需要通过 alignment 的转换公式来计算出。
+               *    2) Stack 可以有多个子元素，并且子元素可以堆叠，而 Align 只能有一个子元素，不存在堆叠。
+               */
+              Container(
+                height: 120.0,
+                width: 120.0,
+                color: Colors.blue[50],
+                child: Align(
+                  alignment: Alignment
+                      .topRight, // 通过 Alignment.topRight 将flutterLogo 定位到Container的右上角
+                  child: FlutterLogo(
+                    size: 60,
+                  ), // FlutterLogo 是 flutter SDK 提供的一个部件，内容就是 flutter 的商标
+                ),
               ),
-            ),
-          ],
-        ));
+              Container(
+                height: 120.0,
+                width: 120.0,
+                color: Colors.blue[50],
+                child: Align(
+                  widthFactor:
+                      2, // 添加 widthFactor 和 heightFactor 效果一样，因为FlutterLogo 宽高为60，则Align的最终宽高都是 2*60=120
+                  heightFactor: 2,
+                  alignment: Alignment.topRight,
+                  child: FlutterLogo(
+                    size: 60,
+                  ),
+                ),
+              ),
+              Container(
+                height: 120.0,
+                width: 120.0,
+                color: Colors.blue[50],
+                child: Align(
+                  widthFactor: 2,
+                  heightFactor: 2,
+                  alignment: Alignment(-1.0, 1.0), // Alignment 抽象类设置位置（详情在上面查看）
+                  child: FlutterLogo(
+                    size: 60,
+                  ),
+                ),
+              ),
+              Container(
+                height: 120.0,
+                width: 120.0,
+                color: Colors.blue[50],
+                child: Align(
+                  widthFactor: 2,
+                  heightFactor: 2,
+                  alignment:
+                      Alignment(2.0, 0.0), // 带入上面的公式可以计算出，实际偏移坐标为(90, 30)。
+                  child: FlutterLogo(
+                    size: 60,
+                  ),
+                ),
+              ),
+              /**
+               * FractionalOffset 继承自 Aligment，它和 Alignmen 唯一的区别就是坐标圆点不同。
+               * FractionalOffset 的坐标原点为矩形的左侧顶点，这和 Alignment 以中心点为坐标原点不一样，
+               * FractionalOffset 坐标转换公式为：
+                实际偏移 = (FractionOffset.x * childWidth, FractionOffset.y * childHeight)
+               */
+              Row(children: <Widget>[
+                Container(
+                  height: 120.0,
+                  width: 120.0,
+                  color: Colors.blue[50],
+                  child: Align(
+                    widthFactor: 2,
+                    heightFactor: 2,
+                    alignment:
+                        FractionalOffset(0.1, 0.2), // 带入之后可以算出，实际偏移为（6, 12）
+                    child: FlutterLogo(
+                      size: 60,
+                    ),
+                  ),
+                )
+              ]),
+              /**
+               * Center 部件
+               * Center 部件继承自 Align，它比 Align 少了一个 alignment 参数。由于 Align 的构造函数中 alignment 值为 Alignment.center
+               * 所以，可以认为 Center 部件其实是对齐方式确定(Alignment.center)了的 Align 。 
+               * 注意：widthFactory 或 heightFactory 为 null 时部件的宽高将会占用尽可能多的空间。
+               */
+              DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.red),
+                  child: Center(
+                    child: Text('xxxxxxx1'),
+                  )),
+              DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.red),
+                  child: Center(
+                    widthFactor: 1, // 添加 widthFactor 和 heightFactor 效果一样，例如：Text 宽高为60，则Align的最终宽高都是 1*60=120
+                    heightFactor: 1,
+                    child: Text('xxxxxxx2'),
+                  )),
+            ]));
   }
 }

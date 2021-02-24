@@ -1,5 +1,6 @@
 // 倒入 ui
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ju_flutter/2statefullWidget.dart';
 import 'package:ju_flutter/2statelessWidget.dart';
 import 'package:ju_flutter/3widget_text.dart';
@@ -7,6 +8,7 @@ import 'package:ju_flutter/4cupertino.dart';
 
 // 应用入口：个人感觉main函数是应用入口；runApp是运行方法；MyApp是根部件
 void main() {
+  // debugPaintSizeEnabled = true; // 控制是否显示部件边线
   runApp(MyApp());
 }
 
