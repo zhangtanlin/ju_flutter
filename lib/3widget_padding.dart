@@ -155,6 +155,41 @@ class _WidgetPaddingState extends State<WidgetPadding> {
                   )
                 ],
               ),
+              AppBar(
+                title: Text('尺寸限制类容器'),
+                actions: <Widget>[
+                  SizedBox(
+                    width: 20,
+                    height: 20,
+                    // 显示中 CircularProgressIndicator 按钮会被拉伸，这是因为 AppBar 中已经指定了 actions 按钮的限制条件，拉伸了 loading 按钮
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      valueColor: AlwaysStoppedAnimation(Colors.white70),
+                    ),
+                  )
+                ],
+              ),
+              AppBar(
+                title: Text('尺寸限制类容器'),
+                actions: <Widget>[
+                  UnconstrainedBox(
+                    child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      // 使用了 UnconstrainedBox 之后 CircularProgressIndicator 按钮的显示不会被拉伸
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        valueColor: AlwaysStoppedAnimation(Colors.white70),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              /**
+               * 除了上面的常用尺寸限制类容器外还有很多。
+               * 比如：AspectRatio 它可以指定子部件的长宽比 LimitedBox 用于指定最大宽高/FractionallySizedBox 可以根据
+               *    父容器宽高比来设置子部件宽高等。这些部件据说很简单，可以试试。
+               */
             ]));
   }
 }
