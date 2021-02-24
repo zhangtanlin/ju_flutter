@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ju_flutter/3widget_decorated.dart';
 
-class WidgetPadding extends StatefulWidget {
+class WidgetDecorated extends StatefulWidget {
   @override
-  _WidgetPaddingState createState() => new _WidgetPaddingState();
+  _WidgetDecoratedState createState() => new _WidgetDecoratedState();
 }
 
-class _WidgetPaddingState extends State<WidgetPadding> {
+class _WidgetDecoratedState extends State<WidgetDecorated> {
   // 自定义 redBox，它是一个背景颜色为红色的盒子，不指定它的宽度和高度
   Widget redBox = DecoratedBox(decoration: BoxDecoration(color: Colors.red));
 
@@ -189,7 +188,7 @@ class _WidgetPaddingState extends State<WidgetPadding> {
                *    父容器宽高比来设置子部件宽高等。这些部件据说很简单，可以试试。
                */
               OutlineButton(
-                child: Text('点击查看装饰容器及更多的部件',
+                child: Text('点击查看对齐与相对定位及更多的部件',
                     style: TextStyle(
                       color: Colors.red,
                     )),
