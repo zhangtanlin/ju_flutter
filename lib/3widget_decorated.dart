@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:ju_flutter/3widget_nav.dart';
+import 'package:ju_flutter/3widget_scaffold.dart';
 
 class WidgetDecorated extends StatefulWidget {
   @override
@@ -135,15 +135,15 @@ class _WidgetDecoratedState extends State<WidgetDecorated> {
                   )
                 ],
               ),
-              // 点击查看导航及更多的部件
+              // 点击查看容器类部件-Scaffold及更多的部件
               OutlineButton(
-                child: Text('点击查看导航及更多的部件',
+                child: Text('点击查看容器类部件-Scaffold及更多的部件',
                     style: TextStyle(
                       color: Colors.red,
                     )),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WidgetNav();
+                    return WidgetScaffold();
                   }));
                 },
               ),
