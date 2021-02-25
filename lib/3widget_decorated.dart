@@ -44,6 +44,9 @@ class _WidgetDecoratedState extends State<WidgetDecorated> {
                   BlendMode backgroundBlendMode,       // 背景混合模式
                   BoxShape shape = BoxShape.rectangle, // 形状
                 })
+               * 下面示例，显示了一个渐变按钮（还不能响应点击事件），在自定义部件中介绍完整功能 GradientButton。
+               * 下面的示例中使用了 LinearGradient 类用于定义线性渐变的类。
+               * flutter 中还提供了渐变配置类，如：RadialGradient/SweepGradient等。
                */
               DecoratedBox(
                   decoration: BoxDecoration(
