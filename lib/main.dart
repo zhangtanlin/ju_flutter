@@ -123,9 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center, // 垂直居中
           children: <Widget>[
             Text(
-              'clumn 的文字部件，我是文字部件，我还是第一个文字部件哟第一一一一一一一一一一一一一一一一一一一一',
-            ),
-            Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),

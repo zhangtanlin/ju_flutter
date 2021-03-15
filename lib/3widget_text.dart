@@ -65,9 +65,9 @@ class WidgetText extends StatelessWidget {
                   ]),
                 ),
                 /*
-            * Row、Column这些具有弹性空间的布局类部件可在水平（Row）和垂直（Column）方向上创建灵活的布局。
-            * 其设计是基于Web开发中的Flexbox布局模型。
-            */
+                 * Row、Column这些具有弹性空间的布局类部件可在水平（Row）和垂直（Column）方向上创建灵活的布局。
+                 * 其设计是基于Web开发中的Flexbox布局模型。
+                 */
                 Row(
                   children: <Widget>[
                     Expanded(child: Center(child: Text('左侧'))),
@@ -76,17 +76,17 @@ class WidgetText extends StatelessWidget {
                   ],
                 ),
                 /*
-            * Stack 堆叠布局（理解为定位布局）。Stack允子许 Widget 进行堆叠
-            * 可以使用 Positioned 来定位他们相对于 Static 的上下左右四条边的位置。
-            */
+                 * Stack 堆叠布局（理解为定位布局）。Stack允子许 Widget 进行堆叠
+                 * 可以使用 Positioned 来定位他们相对于 Static 的上下左右四条边的位置。
+                 */
                 Stack(
                   children: <Widget>[
                     /*
-                * Container 可以创建矩形视觉元素。
-                * Container 可以装饰一个 BoxDecoration，如：background/一个边框/或者一个阴影。
-                * Container 也可以具有外边距（margin）/内边距（padding）和应用于其大小的约束（constraints），
-                * 另外 Container 可以使用矩阵在三维空间中对其进行变换。
-                */
+                     * Container 可以创建矩形视觉元素。
+                     * Container 可以装饰一个 BoxDecoration，如：background/一个边框/或者一个阴影。
+                     * Container 也可以具有外边距（margin）/内边距（padding）和应用于其大小的约束（constraints），
+                     * 另外 Container 可以使用矩阵在三维空间中对其进行变换。
+                     */
                     Container(
                       width: 100,
                       height: 100,
