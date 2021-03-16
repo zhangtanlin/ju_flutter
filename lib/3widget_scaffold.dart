@@ -20,24 +20,68 @@ class WidgetScaffold extends StatefulWidget {
  */
 class _WidgetScaffoldState extends State<WidgetScaffold>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 1;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  void _onAdd() {}
-  // 头部选项卡
-  TabController _tabController; //需要定义一个Controller
-  List tabs = ["新闻", "历史", "图片"];
+  // 选项卡
+  int _tabsCheckedIndex = 0; // 选项卡默认选中值
+  TabController _tabController; // 需要定义一个Controller
+  final List<String> _tabsNameList = ["新闻", "历史", "图片"]; // 选项卡菜单
+  List<Widget> tabsHeader = []; // 选项卡头部部件数组
 
   @override
   void initState() {
     super.initState();
-    //头部选项卡 Controller
-    _tabController = TabController(length: tabs.length, vsync: this);
+    //头部选项卡
+    _tabController = TabController(length: _tabsNameList.length, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _tabsCheckedIndex = _tabController.index;
+      });
+    });
+  }
+
+  // 选项卡头部列表部件
+  List<Widget> setTabsNav(List<String> list) {
+    List<Widget> tempList = [];
+    for (int i = 0; i < list.length; i++) {
+      tempList.add(Tab(
+          child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(right: 15.0),
+            child: Text(list[i]),
+          ),
+          i == _tabsCheckedIndex
+              ? Positioned(
+                  top: 0,
+                  right: 0,
+                  width: 13,
+                  height: 13,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(15.0),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color.fromRGBO(255, 0, 48, 1.0),
+                              Color.fromRGBO(255, 255, 255, 1.0),
+                            ])),
+                  ))
+              : Container()
+        ],
+      )));
+    }
+    return tempList;
+  }
+
+  // 选项卡菜单列表
+  Widget setTabsList(String key) {
+    return Column(
+      children: [
+        Text(key),
+      ],
+    );
   }
 
   @override
@@ -61,133 +105,96 @@ class _WidgetScaffoldState extends State<WidgetScaffold>
        *    点击它便可以打开抽屉菜单。如果我们想自定义菜单按钮，可以手动来设置 leading。
        */
       appBar: AppBar(
-        title: Text('容器类部件'),
-        // 方法一：默认 action 方法
-        // actions: <Widget>[ //导航栏右侧菜单
-        //   IconButton(icon: Icon(Icons.share), onPressed: () {}),
-        // ],
-        // 方法二：添加手动打开左测抽屉菜单方法
-        leading: Builder(
-          builder: (context) {
+          title: Text('标题'), // 标题名称
+          centerTitle: true, // 标题是否居中显示
+          // 自定义左侧图标
+          leading: Builder(builder: (context) {
             return IconButton(
-                icon: Icon(
-                  Icons.dashboard,
-                  color: Colors.white,
-                ), // 自定义图标
+              icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+              onPressed: () {
+                Scaffold.of(context).openDrawer(); // 打开侧边栏（特定用法）
+              },
+            );
+          }),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.share),
                 onPressed: () {
-                  Scaffold.of(context)
-                      .openDrawer(); // 注意：这里是通过 Scaffold.of(context) 可以获取父级最近的 Scaffold 部件的 state 对象。
-                });
-          },
-        ),
-        // 生成 Tab 菜单
-        bottom: TabBar(
-            //生成Tab菜单
-            controller: _tabController,
-            tabs: tabs.map((e) => Tab(text: e)).toList()),
+                  print('右侧按钮');
+                  Scaffold.of(context).openDrawer(); // 打开侧边栏（特定用法）
+                })
+          ],
+          // 生成 Tab 菜单
+          bottom: TabBar(
+            indicator: const BoxDecoration(), // 清空指示器样式
+            controller: _tabController, // 控制器
+            tabs: setTabsNav(_tabsNameList), // 自定义的选项卡头部
+          )),
+      body: TabBarView(
+        controller: _tabController,
+        children: [setTabsList('第一个'), setTabsList('第二个'), setTabsList('第三个')],
       ),
-      drawer: new MyDrawer(), // 抽屉
-      bottomNavigationBar: BottomNavigationBar(
-        // 底部导航
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.business), title: Text('Business')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school), title: Text('School')),
-        ],
-        currentIndex: _selectedIndex,
-        fixedColor: Colors.blue,
-        onTap: _onItemTapped,
-      ),
-      floatingActionButton: FloatingActionButton(
-          //悬浮按钮
-          child: Icon(Icons.add),
-          onPressed: _onAdd),
+      // 左侧侧边栏
+      drawer: new LeftNav(),
+      // 底部导航
+      bottomNavigationBar: BottomNav(),
     );
   }
 }
 
-// /*
-//  * Material 部件库中提供了一个 TabBar部件，它可以快速生成 Tab 菜单。
-//  */
-// class _ScaffoldRouteState extends State<WidgetScaffold>
-//     with SingleTickerProviderStateMixin {
-//   TabController _tabController; //需要定义一个Controller
-//   List tabs = ["新闻", "历史", "图片"];
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // 创建Controller
-//     _tabController = TabController(length: tabs.length, vsync: this);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//       bottom: TabBar(
-//           //生成Tab菜单
-//           controller: _tabController,
-//           tabs: tabs.map((e) => Tab(text: e)).toList()),
-//     ));
-//   }
-// }
-
-// 抽屉菜单Drawer
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({
-    Key key,
-  }) : super(key: key);
-
+// 左侧侧边栏部件
+class LeftNav extends StatelessWidget {
+  const LeftNav({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: MediaQuery.removePadding(
-        context: context,
-        //移除抽屉菜单顶部默认留白
-        removeTop: true,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 38.0),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ClipOval(
-                      child: Image.asset(
-                        "imgs/avatar.png",
-                        width: 80,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Wendux",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  ListTile(
-                    leading: const Icon(Icons.add),
-                    title: const Text('Add account'),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.settings),
-                    title: const Text('Manage accounts'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+      child: ListView(
+        padding: EdgeInsets.all(5.0),
+        children: <Widget>[Text('侧边栏')],
       ),
     );
+  }
+}
+
+// 底部菜单
+class BottomNav extends StatefulWidget {
+  BottomNav({Key key}) : super(key: key);
+  @override
+  _BottomNavState createState() => _BottomNavState();
+}
+
+class _BottomNavState extends State<BottomNav> {
+  int _selectedIndex = 0; // 默认选中值
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '首页',
+            backgroundColor: Colors.red
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '第一',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '第二'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '第三'),
+        ],
+        selectedItemColor: Colors.black, // 选中的选项颜色
+        unselectedItemColor: Colors.grey, // 未选中的选项颜色
+        currentIndex: _selectedIndex, // 设置选中的序列号
+        showUnselectedLabels: true, // 是否显示未选中的 item
+        onTap: _bottomNavTap,
+      ),
+    );
+  }
+
+  // 切换底部菜单
+  void _bottomNavTap(int index) {
+    setState(() {
+      _selectedIndex = index; // 设置选中的序列号
+    });
   }
 }
