@@ -112,17 +112,12 @@ class _WidgetScaffoldState extends State<WidgetScaffold>
             return IconButton(
               icon: Icon(Icons.arrow_back_ios, color: Colors.white),
               onPressed: () {
-                Scaffold.of(context).openDrawer(); // 打开侧边栏（特定用法）
+                Navigator.pop(context); // 返回上一页
               },
             );
           }),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.share),
-                onPressed: () {
-                  print('右侧按钮');
-                  Scaffold.of(context).openDrawer(); // 打开侧边栏（特定用法）
-                })
+            HeaderRight()
           ],
           // 生成 Tab 菜单
           bottom: TabBar(
@@ -156,6 +151,22 @@ class LeftNav extends StatelessWidget {
   }
 }
 
+// 头部右侧
+class HeaderRight extends StatelessWidget {
+  const HeaderRight({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: IconButton(
+          icon: Text('打开侧边栏'),
+          onPressed: () {
+            Scaffold.of(context).openDrawer(); // 打开侧边栏
+          }),
+    );
+  }
+}
+
 // 底部菜单
 class BottomNav extends StatefulWidget {
   BottomNav({Key key}) : super(key: key);
@@ -173,17 +184,24 @@ class _BottomNavState extends State<BottomNav> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '首页',
-            backgroundColor: Colors.red
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '第一',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '第二'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '第三'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '第二',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '第三',
+          ),
         ],
         selectedItemColor: Colors.black, // 选中的选项颜色
-        unselectedItemColor: Colors.grey, // 未选中的选项颜色
+        unselectedItemColor: Colors.black26, // 未选中的选项颜色
+        backgroundColor: Colors.grey[300], // 背景色
+        type: BottomNavigationBarType.fixed, // 如果超过3个item 要设置背景色，需要设置为 fixed
         currentIndex: _selectedIndex, // 设置选中的序列号
         showUnselectedLabels: true, // 是否显示未选中的 item
         onTap: _bottomNavTap,
