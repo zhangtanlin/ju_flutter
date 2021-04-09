@@ -49,15 +49,15 @@ class WidgetImg extends StatelessWidget {
                     image: AssetImage('assets/images/bg.jpg'),
                     width: 100.0,
                   ),
-                  Image(
-                    image: NetworkImage(
-                        'http://img.netbian.com/file/20110226/7c9cbcb16f0360e67a25e68b47bac1ab.jpg'),
-                    width: 100.0,
-                  ),
-                  Image.network(
-                    'https://image.shutterstock.com/image-photo/colors-rainbow-pattern-multicolored-butterflies-260nw-784675318.jpg',
-                    width: 100.0,
-                  ),
+                  // Image(
+                  //   image: NetworkImage(
+                  //       'http://img.netbian.com/file/20110226/7c9cbcb16f0360e67a25e68b47bac1ab.jpg'),
+                  //   width: 100.0,
+                  // ),
+                  // Image.network(
+                  //   'https://image.shutterstock.com/image-photo/colors-rainbow-pattern-multicolored-butterflies-260nw-784675318.jpg',
+                  //   width: 100.0,
+                  // ),
                 ]),
                 Image(
                   image: AssetImage("assets/images/bg.jpg"),

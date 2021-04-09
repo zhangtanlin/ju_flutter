@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/http/http_api.dart';
+import 'package:ju_flutter/store/testStatus.dart';
+import 'package:provider/provider.dart';
 
 class WidgetScaffold extends StatefulWidget {
   @override
@@ -116,9 +119,7 @@ class _WidgetScaffoldState extends State<WidgetScaffold>
               },
             );
           }),
-          actions: <Widget>[
-            HeaderRight()
-          ],
+          actions: <Widget>[HeaderRight()],
           // 生成 Tab 菜单
           bottom: TabBar(
             indicator: const BoxDecoration(), // 清空指示器样式
@@ -137,6 +138,9 @@ class _WidgetScaffoldState extends State<WidgetScaffold>
   }
 }
 
+// 头像
+Widget avatar = Image.asset('name');
+
 // 左侧侧边栏部件
 class LeftNav extends StatelessWidget {
   const LeftNav({Key key}) : super(key: key);
@@ -144,8 +148,14 @@ class LeftNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.all(5.0),
-        children: <Widget>[Text('侧边栏')],
+        children: <Widget>[
+          Text('${context.watch<TestState>().test.toString()}'),
+          RaisedButton(
+              child: Text('点击测试跨部件获取公共状态'),
+              onPressed: () {
+                context.read<TestState>().setTest();
+              })
+        ],
       ),
     );
   }
