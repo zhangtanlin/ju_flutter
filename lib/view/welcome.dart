@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:ju_flutter/http/http_api.dart';
 import 'package:ju_flutter/route/application.dart';
 import 'package:ju_flutter/utils/util_check_line.dart';
 import 'package:ju_flutter/utils/util_screen.dart';
@@ -36,27 +35,28 @@ class _WelcomeState extends State<Welcome> {
     },
   ];
 
+  /// 初始化
+  ///
+  /// [initScreen()]初始化设备屏幕
   void initState() {
     detectionLine();
     super.initState();
   }
 
   /// 检测线路
-  /// 
+  /// [apiGetCheckLine()]api请求检测线路接口。
   /// [isCheckLine]是否检测线路中，[UtilCheckLine()]选择路线方法。
   void detectionLine() async {
     setState(() {
       isCheckLine = true;
     });
-    var res = await apiGetCheckLine();
-    if (res != null && res.status == 200) {
-      print('获取路线成功');
-      setState(() {
-        isCheckLine = false;
-      });
-    } else {
-      print('获取路线失败：$res');
-    }
+    UtilCheckLine.checkLine(onIpError: () {
+      print('ip错误');
+    }, onSuccess: () {
+      print('检测线路成功');
+    }, onFailed: () {
+      print('检测线路失败');
+    });
   }
 
   /// 构建
@@ -66,6 +66,8 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     UtilScreen.initScreen(context);
+
+    detectionLine();
     return Stack(
       alignment: Alignment.center,
       children: [

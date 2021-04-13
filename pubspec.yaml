@@ -32,7 +32,7 @@ dependencies:
   # 数据持久化解决方案
   shared_preferences: ^2.0.5
   # http请求
-  dio: ^4.0.0
+  dio: ^3.0.9
   # 路由插件
   fluro: ^2.0.3
   # 共享状态管理插件

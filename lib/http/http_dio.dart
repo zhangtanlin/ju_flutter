@@ -1,142 +1,88 @@
-import 'dart:io';
-
-import 'package:device_info/device_info.dart';
 import 'package:dio/dio.dart';
 import 'package:ju_flutter/config/network.dart';
-import 'package:ju_flutter/utils/util_language.dart';
-import 'package:package_info/package_info.dart';
 
 /// 构造 http 请求类
 ///
-/// [_packageInfo]-应用程序信息
-/// [_deviceInfoPlugin]-设备信息
-/// [_androidDeviceInfo]-android信息
-/// [_iosDeviceInfo]-ios信息
-/// [_baseParam]-基础参数
-/// [baseOptions]-dio 参数
-/// [_dio]-http请求插件
-/// [_defaultHeader]-默认请求头
+/// 注意1：如果起了后端服务，用以测试需要使用ip地址进行访问。
+/// 注意2：如果是本地安卓测试，需要在"android/app/src/main/AndroidManifest.xml"路径文件的
+/// application标签内补充参数 android:usesCleartextTraffic="true" 表示全局允许不安全/HTTP请求。
+/// 注意3：在iOS上的整个应用程序中全局允许不安全/ HTTP请求，您可以将其添加到主字典定义下的ios/Runner/info.plist中：
+/// ```
+/// <key>NSAppTransportSecurity</key>
+/// <dict>
+///   <key>NSAllowsArbitraryLoads</key>
+///   <true/>
+/// </dict>
+/// ```
+/// 参考文档： [https://www.cnblogs.com/sundaysme/p/12624185.html]
 class HttpDio {
-  static Dio _dio;
-  static HttpDio _httpDio;
-  PackageInfo _packageInfo;
-  DeviceInfoPlugin _deviceInfoPlugin = DeviceInfoPlugin();
-  AndroidDeviceInfo _androidDeviceInfo;
-  IosDeviceInfo _iosDeviceInfo;
-  Map<String, dynamic> _baseParam;
-  BaseOptions baseOptions;
-  Map<String, dynamic> _defaultHeader = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/x-www-from-urlencoded'
-  };
+  /// 定义
+  Dio _dio;
+  static HttpDio _instance = HttpDio._internal();
 
-  /// 工厂模式初始化 HttpDio，用以判定是否已经初始化。
-  ///
-  /// 如果[_dio]没有初始化，则初始化；否则返回[_dio]。
-  factory HttpDio() {
-    if (_httpDio == null) {
-      _httpDio = HttpDio.initDeviceInfo();
-      _dio = Dio();
-    }
-    return _httpDio;
-  }
+  /// 初始化方法
+  factory HttpDio() => _instance;
 
-  /// 工厂模式扩展设备信息
-  HttpDio.initDeviceInfo() {
-    _deviceInfoPlugin = DeviceInfoPlugin();
-  }
-
-  /// 初始化获取(安卓/IOS)信息
-  initSystemInfo({
-    String hostUrl,
-  }) async {
-    if (Platform.isAndroid) {
-      _androidDeviceInfo = await _deviceInfoPlugin.androidInfo;
-    }
-    if (Platform.isIOS) {
-      _iosDeviceInfo = await _deviceInfoPlugin.iosInfo;
+  /// 通用全局单例，第一次使用时初始化
+  HttpDio._internal() {
+    if (_dio == null) {
+      var options = BaseOptions(
+        baseUrl: Network.devApi[0],
+        connectTimeout: 5000,
+        receiveTimeout: 3000,
+      );
+      _dio = Dio(options);
     }
   }
 
-  /// http 请求参数
-  ///
-  /// 注意1:如果返回数据是 json(content-type),dio会自动把数据转换成json。
-  /// 注意2:响应流上前后 两次接收到数据的间隔，单位为秒，如果两次间隔超过[receiveTimeout]，
-  /// [Dio]将会抛出一个[DioErrorType.RECEIVE_TIMEOUT]的异常。
-  initHttpHeader({String hostUrl = '', Map<String, dynamic> headers}) {
-    baseOptions = BaseOptions(
-        baseUrl: hostUrl ?? Network.defaultApi,
-        connectTimeout: 20 * 1000,
-        responseType: ResponseType.plain,
-        receiveTimeout: 3000000,
-        headers: headers ?? _defaultHeader);
-    print('=888=$_dio=');
-    print('==woaini:$baseOptions===');
-    _dio.options = baseOptions;
+  /// 判定是否有 baseUrl
+  static HttpDio getInstance({String baseUrl}) {
+    if (baseUrl == null) {
+      return _instance._setNormal();
+    } else {
+      return _instance._setBaseUrl(baseUrl);
+    }
   }
 
-  /// 基础参数
-  Map<String, dynamic> _setBaseParam() {
-    Map<String, dynamic> info = {};
-    if (Platform.isAndroid) {
-      print('=====andriod请求:=====');
-      info['oauth_id'] = _androidDeviceInfo.androidId; // 安卓id
+  /// 设置默认域名
+  HttpDio _setNormal() {
+    if (_dio != null) {
+      if (_dio.options.baseUrl != Network.devApi[0]) {
+        _dio.options.baseUrl = Network.devApi[0];
+      }
     }
-    if (Platform.isIOS) {
-      print('=====ios请求:=====');
-      info['oauth_id'] = _iosDeviceInfo.identifierForVendor; // ios的id
-    }
-    print('=====公共参数1:=====');
-    info['version'] = _packageInfo.version; // 版本
-    info['language'] = UtilLanguage.language == Language.hans ? 1 : 2; // 语言
-    print('=====公共参数2:=====');
-    _baseParam = info;
+    return this;
   }
 
-  /// post 请求（纯净版不带参数）
-  Future<Null> purePost(String path) {
+  /// 指定特定域名，比如 cdn 或者首次 http 请求
+  HttpDio _setBaseUrl(String baseUrl) {
+    if (_dio != null) {
+      _dio.options.baseUrl = baseUrl;
+    }
+    return this;
+  }
+
+  /// get方法
+  get(String url,
+      {Map<String, dynamic> querys = const {}, noTip = false}) async {
+    Response response;
     try {
-      var response =
-          _dio.post(path, options: Options(responseType: ResponseType.plain));
-      return response;
+      response = await _dio.get(url, queryParameters: querys);
     } catch (e) {
       return null;
     }
+    return response.data;
   }
 
-  /// post 请求
-  Future<Map> post({String path = '', Map<String, dynamic> params}) async {
+  /// post方法
+  post(String url,
+      {Map<String, dynamic> params = const {}, onTip = false}) async {
+    Response response;
     try {
-      if (params == null) params = {};
-      Map<String, dynamic> tempParam = _setBaseParam();
-      tempParam.addAll(params);
-      var data = tempParam;
-      Response response = await _dio.post(path, data: data ?? '');
-      var responseData = response.data;
-      if (responseData == null || responseData == '') return {};
-      return responseData;
+      response = await _dio.post(url, data: params);
     } catch (e) {
       return null;
     }
-  }
-
-  /// get 请求
-  Future get({String path, Map<String, dynamic> query}) async {
-    try {
-      if (query == null) query = {};
-      Map<String, dynamic> tempParam = _setBaseParam();
-      print('=====tempParam2:=====');
-      tempParam.addAll(query);
-      var data = tempParam;
-      print('=====get1.data:$data=====');
-      var response = await _dio.get(path, queryParameters: data);
-      print('=====get1.response:$response=====');
-      var responseData = response.data;
-      print('=====get2.response:$responseData=====');
-      if (responseData == null || responseData == '') return {};
-      return responseData;
-    } catch (e) {
-      return null;
-    }
+    return response.data;
   }
 }
