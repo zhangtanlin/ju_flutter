@@ -22,12 +22,11 @@ class UtilCheckLine {
     }
 
     /// 选择线路接口调用
-    var res = await apiGetCheckLine();
-    print('res-------------------$res');
+    var res = await Api.apiGetCheckLine();
     if (res != null && res.status == 200) {
-      print('获取路线成功$res');
+      onSuccess(res);
     } else {
-      print('获取路线失败：$res');
+      onFailed('获取路线失败');
     }
   }
 }

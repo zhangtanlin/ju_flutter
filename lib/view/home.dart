@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ju_flutter/components/echo.dart';
+import 'package:ju_flutter/http/http_api.dart';
 import 'package:ju_flutter/route/application.dart';
 
 /// 首页界面（有状态）
@@ -23,6 +24,22 @@ class Home extends StatefulWidget {
 /// [setState]先自增再通知 flutter 框架状态更改 => flutter 框架会执行下面的 build 方法重新构建。
 class _HomeState extends State<Home> {
   int _counter = 0;
+
+  void initState() {
+    _initData();
+    super.initState();
+  }
+
+  /// 获取数据
+  void _initData() async {
+    var response = await Api.apiUser();
+    if (response != null) {
+      print('=成功返回值=$response=============');
+    } else {
+      print('=失败返回值=$response=============');
+    }
+  }
+
   void _incrementCounter() {
     setState(() {
       _counter++;

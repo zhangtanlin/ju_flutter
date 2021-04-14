@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ju_flutter/route/application.dart';
+import 'package:ju_flutter/route/route_list.dart';
 import 'package:ju_flutter/utils/util_check_line.dart';
 import 'package:ju_flutter/utils/util_screen.dart';
 import 'package:ju_flutter/utils/util_theme.dart';
@@ -16,7 +17,6 @@ class Welcome extends StatefulWidget {
 /// Welcome类对应的状态类
 class _WelcomeState extends State<Welcome> {
   /// 定义
-  ///
   /// [isCheckLine]路线是否检测完毕
   /// [_bannerList] 轮播列表
   bool isCheckLine = true;
@@ -35,39 +35,41 @@ class _WelcomeState extends State<Welcome> {
     },
   ];
 
-  /// 初始化
-  ///
-  /// [initScreen()]初始化设备屏幕
+  /// 部件初始化时
+  /// [detectionLine]检测路线接口调用
   void initState() {
     detectionLine();
     super.initState();
   }
 
   /// 检测线路
-  /// [apiGetCheckLine()]api请求检测线路接口。
-  /// [isCheckLine]是否检测线路中，[UtilCheckLine()]选择路线方法。
-  void detectionLine() async {
+  /// [isCheckLine]是否检测线路中
+  /// [UtilCheckLine.checkLine()]选择路线方法
+  /// [Application.fluroRouter.navigateTo()]路由跳转方法
+  /// [RouteList.home]首页路由
+  detectionLine() {
     setState(() {
       isCheckLine = true;
     });
     UtilCheckLine.checkLine(onIpError: () {
       print('ip错误');
-    }, onSuccess: () {
-      print('检测线路成功');
-    }, onFailed: () {
-      print('检测线路失败');
+    }, onSuccess: (data) {
+      print('检测线路成功1$data');
+      // Application.fluroRouter.navigateTo(context, RouteList.home);
+      Application.fluroRouter.navigateTo(context, 'home');
+      print('检测线路成功2$data');
+    }, onFailed: (e) {
+      print('错误$e');
     });
   }
 
   /// 构建
-  ///
-  /// [initScreen]初始化设备信息（屏幕/宽高等公共方法）
-  /// 注意：[initScreen]初始化需要在[webcome]部件的[build()]方法内初始化，不能在[main]内初始化。
   @override
   Widget build(BuildContext context) {
+    /// [initScreen]初始化设备信息（屏幕/宽高等公共方法）
+    /// 注意：[initScreen]初始化需要在[webcome]部件的[build()]方法内初始化，不能在[main]内初始化。
     UtilScreen.initScreen(context);
 
-    detectionLine();
     return Stack(
       alignment: Alignment.center,
       children: [
