@@ -19,7 +19,7 @@ class _WelcomeState extends State<Welcome> {
   /// 定义
   /// [isCheckLine]路线是否检测完毕
   /// [_bannerList] 轮播列表
-  bool isCheckLine = true;
+  bool isCheckLine;
   List<Map<String, String>> _bannerList = [
     {
       "url": "assets/images/welcome/banner1.jpeg",
@@ -38,8 +38,8 @@ class _WelcomeState extends State<Welcome> {
   /// 部件初始化时
   /// [detectionLine]检测路线接口调用
   void initState() {
-    detectionLine();
     super.initState();
+    detectionLine();
   }
 
   /// 检测线路
@@ -54,10 +54,11 @@ class _WelcomeState extends State<Welcome> {
     UtilCheckLine.checkLine(onIpError: () {
       print('ip错误');
     }, onSuccess: (data) {
-      print('检测线路成功1$data');
-      // Application.fluroRouter.navigateTo(context, RouteList.home);
-      Application.fluroRouter.navigateTo(context, 'home');
-      print('检测线路成功2$data');
+      Future.delayed(Duration(seconds: 5), () {
+        setState(() {
+          isCheckLine = false;
+        });
+      });
     }, onFailed: (e) {
       print('错误$e');
     });
