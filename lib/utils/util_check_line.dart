@@ -1,6 +1,6 @@
-import 'package:ju_flutter/config/network.dart';
+import 'package:ju_flutter/constant/shared_preferences_key.dart';
 import 'package:ju_flutter/http/http_api.dart';
-import 'package:ju_flutter/store/sharedPreferences.dart';
+import 'package:ju_flutter/utils/util_shared_preferences.dart';
 
 /// 选择路线
 class UtilCheckLine {
@@ -13,13 +13,10 @@ class UtilCheckLine {
     Function onFailed,
   }) async {
     /// 获取本地路线配置参数
-    List<String> apiUrlList;
-    if (apiUrlList == null) {
-      apiUrlList = await PersistentState.getState('CONFIG_LINEX');
-      if (apiUrlList == null) {
-        apiUrlList = Network.proApi;
-      }
-    }
+    String apiUrlList =
+        UtilSharedPref.sharedPref().getString(SharedPrefKey.text) ??
+            'http://127.0.0.1:3000';
+    print('=apiUrlList2=$apiUrlList=======');
 
     /// 选择线路接口调用
     var res = await Api.apiGetCheckLine();

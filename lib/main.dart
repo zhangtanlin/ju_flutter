@@ -5,16 +5,21 @@ import 'package:ju_flutter/store/testStatus.dart';
 import 'package:ju_flutter/utils/util_language.dart';
 import 'package:ju_flutter/route/application.dart';
 import 'package:ju_flutter/route/route_list.dart';
+import 'package:ju_flutter/utils/util_shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 /// 应用入口
 ///
 /// [main()]函数是应用入口；
 /// [debugPaintSizeEnabled]控制是否显示部件边线，使用时需要引入 import 'package:flutter/rendering.dart';
+/// [UtilSharedPref.getUtilSharedPref()]初始化"数据持久化自定义方法"[shared_preferences]。
 /// [runApp()]运行方法；
 /// [MyApp()]根部件
-void main() {
+/// 注意： 如果要运行异步代码需要引入[WidgetsFlutterBinding.ensureInitialized()]。
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // debugPaintSizeEnabled = true;
+  await UtilSharedPref.getUtilSharedPref();
 
   /// 跨部件状态共享
   ///
@@ -54,7 +59,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     /// 引入路由
     ///
     /// [router]新建 fluro
@@ -115,8 +119,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.transparent,
         canvasColor: Colors.transparent,
         scaffoldBackgroundColor: Color(0xFFF5F5F5),
-        visualDensity: VisualDensity
-            .adaptivePlatformDensity,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Georgia',
         textTheme: TextTheme(),
       ),
