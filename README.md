@@ -9,12 +9,12 @@
 
 ## 目录介绍
 * pubspec.yaml flutter包管理工具
-  >1. **name**：应用或包名称。
-  >2. **description**：应用或包的描述、简介。
-  >3. **version**：应用或包的版本号。
-  >4. **dependencies**：应用或包依赖的其它包或插件。
-  >5. **dev_dependencies**：开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）。
-  >6. **flutter**：flutter 相关的配置选项。
+    >1. **name**：应用或包名称。
+    >2. **description**：应用或包的描述、简介。
+    >3. **version**：应用或包的版本号。
+    >4. **dependencies**：应用或包依赖的其它包或插件。
+    >5. **dev_dependencies**：开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）。
+    >6. **flutter**：flutter 相关的配置选项。
 
 ## flutter 相关操作
 1. sdk降级、回退、升级降级到指定的版本方法:
