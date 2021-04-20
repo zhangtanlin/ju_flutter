@@ -39,6 +39,8 @@ dependencies:
   provider: ^5.0.0
   # 滚动插件
   flutter_swiper: ^1.1.6
+  # 轻提示
+  fluttertoast: ^8.0.5
   # flutter 内置 tabBar 美化插件
   tab_indicator_styler: ^1.0.0
 # 开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）
