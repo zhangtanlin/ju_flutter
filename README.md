@@ -34,12 +34,12 @@
 2. 检查是否有设备已经连接<br>
   **flutter devices**
 3. 运行。<br>
-    >* (1).打开 ios 模拟器(或者开启别的模拟器): **open -a Simulator**<br>
-    >* (2).安装依赖: **flutter packages get**<br>
-    >* (3).启动程序: **flutter run**<br>
-    >* 注意1： flutter 应用程序只有在调试模式下才能被热重载。<br>
-    >* 注意2：如果使用 flutter run 运行应用程序，在终端运行状态下输入 **r** 可以进行热重载。<br>
-    >* 注意3：如果使用 flutter run 运行应用程序，在终端运行状态下输入 **p** 可以打开布局线条，再次按 **p** 取消显示布局线条。<br>
+    >(1).打开 ios 模拟器(或者开启别的模拟器): **open -a Simulator**<br>
+    >(2).安装依赖: **flutter packages get**<br>
+    >(3).启动程序: **flutter run**<br>
+    >注意1： flutter 应用程序只有在调试模式下才能被热重载。<br>
+    >注意2：如果使用 flutter run 运行应用程序，在终端运行状态下输入 **r** 可以进行热重载。<br>
+    >注意3：如果使用 flutter run 运行应用程序，在终端运行状态下输入 **p** 可以打开布局线条，再次按 **p** 取消显示布局线条。<br>
 
 ## 编辑代码之后执行的代码检查
 1. 代码检查<br>
