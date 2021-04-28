@@ -16,3 +16,13 @@ class UtilColor {
   static const Color ColorInfo = Color(0xFFF2E700); // 注意
   static const Color ColorSuccess = Color(0xFF00B06B); // 成功
 }
+
+/// 文字
+///
+/// 注意：字号是被*2的，需要注意
+class UtilText {
+  static TextStyle font14White = TextStyle(
+    color: Color.fromRGBO(255, 255, 255, 1),
+    fontSize: UtilScreen.setFontSize(28.0),
+  );
+}

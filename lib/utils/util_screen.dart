@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 /// 设备屏幕相关
 class UtilScreen {
-
   /// 定义
-  /// 
+  ///
   /// [_designWidth]      设计图-宽度
   /// [_designHeight]     设计图-高度
   /// [_designPixelsRatio]设计图-像素比率（未缩放状态下，一个设计图像素等于多少设备像素）
@@ -21,7 +20,7 @@ class UtilScreen {
   static double _screenPixelRatio;
 
   /// 初始化屏幕信息【默认信息根据 iphone7 尺寸设计】
-  /// 
+  ///
   /// [context]         应用程序上下文
   /// [designWidth]     默认设计图宽度
   /// [designHeight]    默认设计图高度
