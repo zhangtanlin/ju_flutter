@@ -54,10 +54,8 @@ class _WelcomeState extends State<Welcome> {
     UtilCheckLine.checkLine(onIpError: () {
       print('ip错误');
     }, onSuccess: (data) {
-      Future.delayed(Duration(seconds: 5), () {
-        setState(() {
-          isCheckLine = false;
-        });
+      setState(() {
+        isCheckLine = false;
       });
     }, onFailed: (e) {
       print('错误$e');
