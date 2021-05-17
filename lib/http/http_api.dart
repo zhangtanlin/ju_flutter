@@ -2,7 +2,7 @@ import 'package:ju_flutter/http/http_dio.dart';
 import 'package:ju_flutter/model/check_line.dart';
 import 'package:ju_flutter/model/user.dart';
 
-class Api {
+class HttpApi {
   /// 选择线路
   static apiGetCheckLine() async {
     try {
@@ -14,10 +14,21 @@ class Api {
     }
   }
 
-  /// 选择线路
+  /// 用户
   static apiUser() async {
     try {
       Map data = await HttpDio.getInstance().get('/api/user');
+      ModelUser modelUser = ModelUser.fromJson(data);
+      return modelUser;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// 视频详情
+  static apiVideoDetail() async {
+    try {
+      Map data = await HttpDio.getInstance().post('/api/user');
       ModelUser modelUser = ModelUser.fromJson(data);
       return modelUser;
     } catch (e) {

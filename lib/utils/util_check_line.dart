@@ -19,7 +19,7 @@ class UtilCheckLine {
     print('=apiUrlList2=$apiUrlList=======');
 
     /// 选择线路接口调用
-    var res = await Api.apiGetCheckLine();
+    var res = await HttpApi.apiGetCheckLine();
     if (res != null && res.status == 200) {
       onSuccess(res);
     } else {
