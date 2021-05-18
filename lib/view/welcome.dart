@@ -3,6 +3,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:ju_flutter/route/application.dart';
 import 'package:ju_flutter/route/route_list.dart';
 import 'package:ju_flutter/utils/util_check_line.dart';
+import 'package:ju_flutter/utils/util_device.dart';
 import 'package:ju_flutter/utils/util_screen.dart';
 import 'package:ju_flutter/utils/util_theme.dart';
 
@@ -58,16 +59,20 @@ class _WelcomeState extends State<Welcome> {
         isCheckLine = false;
       });
     }, onFailed: (e) {
-      print('错误$e');
+      print('$e');
     });
   }
 
   /// 构建
   @override
   Widget build(BuildContext context) {
+    /// 初始化一些公共方法
+    ///
     /// [initScreen]初始化设备信息（屏幕/宽高等公共方法）
+    /// [UtilDevice()]设备信息初始化
     /// 注意：[initScreen]初始化需要在[webcome]部件的[build()]方法内初始化，不能在[main]内初始化。
     UtilScreen.initScreen(context);
+    UtilDevice.initDeviceInfo();
 
     return Stack(
       alignment: Alignment.center,

@@ -2,4 +2,7 @@
 class SharedPrefKey {
   /// 测试 key
   static const String text = 'text';
+
+  /// 线路请求地址
+  static String line = 'LINE';
 }

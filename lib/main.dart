@@ -5,21 +5,21 @@ import 'package:ju_flutter/store/testStatus.dart';
 import 'package:ju_flutter/utils/util_language.dart';
 import 'package:ju_flutter/route/application.dart';
 import 'package:ju_flutter/route/route_list.dart';
-import 'package:ju_flutter/utils/util_shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:sp_util/sp_util.dart';
 
 /// 应用入口
 ///
 /// [main()]函数是应用入口；
 /// [debugPaintSizeEnabled]控制是否显示部件边线，使用时需要引入 import 'package:flutter/rendering.dart';
-/// [UtilSharedPref.getUtilSharedPref()]初始化"数据持久化自定义方法"[shared_preferences]。
+/// [SpUtil.getInstance()]初始化"数据持久化"[shared_preferences]的一些方法。
 /// [runApp()]运行方法；
 /// [MyApp()]根部件
 /// 注意： 如果要运行异步代码需要引入[WidgetsFlutterBinding.ensureInitialized()]。
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // debugPaintSizeEnabled = true;
-  await UtilSharedPref.getUtilSharedPref();
+  await SpUtil.getInstance();
 
   /// 跨部件状态共享
   ///

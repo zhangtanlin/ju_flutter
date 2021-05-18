@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
 
   /// 获取数据
   void _initData() async {
-    ModelUser modelUser = await HttpApi.apiUser();
+    ModelUser modelUser = await HttpApi.apiGetUserList();
     UtilLog.p(modelUser.toJson());
     if (modelUser != null) {
       // print('=成功返回值=$modelUser=============');

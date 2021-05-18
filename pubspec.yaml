@@ -31,6 +31,8 @@ dependencies:
   package_info: ^2.0.0
   # 数据持久化解决方案
   shared_preferences: ^2.0.5
+  # 数据持久化-方法优化
+  sp_util: 2.0.3
   # http请求
   dio: ^3.0.9
   # 路由插件

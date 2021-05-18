@@ -15,9 +15,9 @@ class HttpApi {
   }
 
   /// 用户
-  static apiUser() async {
+  static apiGetUserList() async {
     try {
-      Map data = await HttpDio.getInstance().get('/api/user');
+      Map data = await HttpDio.getInstance().post('/api/user');
       ModelUser modelUser = ModelUser.fromJson(data);
       return modelUser;
     } catch (e) {
