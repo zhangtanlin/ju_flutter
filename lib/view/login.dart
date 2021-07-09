@@ -5,9 +5,12 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('登陆'),
-        ),
-        body: Center(child: Text('登陆界面')));
+      appBar: AppBar(
+        title: Text('登陆'),
+      ),
+      body: Center(
+        child: Text('登陆界面'),
+      ),
+    );
   }
 }

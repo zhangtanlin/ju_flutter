@@ -24,5 +24,6 @@ class UtilText {
   static TextStyle font14White = TextStyle(
     color: Color.fromRGBO(255, 255, 255, 1),
     fontSize: UtilScreen.setFontSize(28.0),
+    decoration: TextDecoration.none,
   );
 }

@@ -110,8 +110,11 @@ class NewRoute extends StatelessWidget {
     // Container 背景图模块
     return Container(
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/bg.jpg"), fit: BoxFit.cover)),
+        image: DecorationImage(
+          image: AssetImage("assets/images/common/bg.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

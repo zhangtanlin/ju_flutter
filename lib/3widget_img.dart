@@ -46,7 +46,7 @@ class WidgetImg extends StatelessWidget {
                  */
                 Row(children: [
                   Image(
-                    image: AssetImage('assets/images/bg.jpg'),
+                    image: AssetImage('assets/images/common/bg.jpg'),
                     width: 100.0,
                   ),
                   // Image(
@@ -60,7 +60,7 @@ class WidgetImg extends StatelessWidget {
                   // ),
                 ]),
                 Image(
-                  image: AssetImage("assets/images/bg.jpg"),
+                  image: AssetImage("assets/images/common/bg.jpg"),
                   width: 100.0,
                   color: Colors.red,
                   colorBlendMode: BlendMode.difference,

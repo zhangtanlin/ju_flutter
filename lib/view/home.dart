@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ju_flutter/components/echo.dart';
-import 'package:ju_flutter/http/http_api.dart';
-import 'package:ju_flutter/model/user.dart';
 import 'package:ju_flutter/route/application.dart';
-import 'package:ju_flutter/utils/util_log.dart';
 
 /// 首页界面（有状态）
 ///
@@ -33,15 +30,7 @@ class _HomeState extends State<Home> {
   }
 
   /// 获取数据
-  void _initData() async {
-    ModelUser modelUser = await HttpApi.apiGetUserList();
-    UtilLog.p(modelUser.toJson());
-    if (modelUser != null) {
-      // print('=成功返回值=$modelUser=============');
-    } else {
-      // print('=失败返回值=$modelUser=============');
-    }
-  }
+  void _initData() async {}
 
   void _incrementCounter() {
     setState(() {

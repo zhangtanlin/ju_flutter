@@ -60,3 +60,44 @@
 1. 打开 Xcode 编辑器。
 2. 导入 Flutter 项目。
 3. 使用 Xcode 调试项目，并在各个水果设备上验证。
+
+## 安卓升级安装问题
+修改android目录的build.gradle中applicationId需要同时修改updateModel.dart文件299行中的applicationId
+
+## pull_to_refresh_notification.dart
+改造_show方法
+1. 当拉动距离小于触发刷新的情况下，直接回弹不刷新
+<pre>
+if(_dragOffset < widget.maxDragOffset) {
+  _dismiss(RefreshIndicatorMode.canceled);
+  return;
+} 
+</pre>
+2. 使用Future.delayed(const Duration(milliseconds: 2000), () { ... } 包裹回弹代码，让下拉回弹停顿一会儿发生，时间可自己设置
+
+## 公共库路径
+/Users/mac/development/flutter/.pub-cache/hosted/pub.dartlang.org/
+
+flutter build apk --target-platform  android-arm --split-per-abi
+
+## 线上疑难杂症
+1.启动广告会影响进入APP
+
+## 选择线路需要执行的操作：
+1:设置超时事件
+
+2-1:初始化 dio 模块
+2-2:初始化设备信息
+
+3-1:初始化 shared_preferences
+3-2:定义 shared_preferences 存储的配置线路地址
+
+4-1:定义错误线路数组 errorLines = []；
+4-2:定义错误线路个数 errorCount = 0；
+
+5-1:定义选择路线方法 doCheck；
+5-2:定义探测备用线路的方法 checkBackUpLine；
+5-2-1: 请求 github 备用地址。使用 Uri.parse('http://github.com/****')方法解析备用地址。
+
+
+

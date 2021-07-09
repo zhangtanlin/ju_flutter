@@ -1,42 +1,47 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
-import 'package:package_info/package_info.dart';
 
-/// 设备信息
+/// 设备信息(含版本信息)
 class UtilDevice {
   /// 定义
   ///
+  /// [_utilDevice]单例对象
   /// [_deviceInfoPlugin]设备信息
   /// [_androidDeviceInfo]安卓设备信息
   /// [_iosDeviceInfo]ios设备信息
-  /// [_packageInfo]版本信息
+  static UtilDevice _utilDevice = UtilDevice._internal(); // 内部
   static DeviceInfoPlugin _deviceInfoPlugin;
   static AndroidDeviceInfo _androidDeviceInfo;
   static IosDeviceInfo _iosDeviceInfo;
-  static PackageInfo _packageInfo;
 
-  factory UtilDevice() {
-    return initDeviceInfo();
+  /// 工厂构造方法（这里使用命名构造函数方式进行声明）。
+  factory UtilDevice() => _utilDevice;
+
+  /// 单例内部构造方法(此写法可避免外部暴露构造函数，并进行实例化)。
+  UtilDevice._internal() {
+    if (_deviceInfoPlugin == null) {
+      // 初始化
+      initDeviceInfo();
+    }
   }
 
-  /// 导出
-  get androidDeviceInfo => _androidDeviceInfo;
-  get iosDeviceInfo => _iosDeviceInfo;
-  get packageInfo => _packageInfo;
-
-  /// 初始化
-  ///
-  /// [_deviceInfoPlugin]获取设备信息
-  /// [_packageInfo]获取版本信息
-  static initDeviceInfo() async {
+  /// 初始化 android/ios 信息
+  Future initDeviceInfo() async {
     _deviceInfoPlugin = DeviceInfoPlugin();
-    _packageInfo = await PackageInfo.fromPlatform();
     if (Platform.isAndroid) {
-      _androidDeviceInfo = await _deviceInfoPlugin.androidInfo ?? '';
+      AndroidDeviceInfo _androidInfo = await _deviceInfoPlugin.androidInfo;
+      _androidDeviceInfo = _androidInfo;
     }
     if (Platform.isIOS) {
-      _iosDeviceInfo = await _deviceInfoPlugin.iosInfo ?? '';
+      IosDeviceInfo _iosDeviceInfo = await _deviceInfoPlugin.iosInfo;
+      _iosDeviceInfo = _iosDeviceInfo;
     }
   }
+
+  /// 导出安卓设备信息
+  static get getAndroidInfo => _androidDeviceInfo;
+
+  /// 导出 ios 设备信息
+  static get getIosInfo => _iosDeviceInfo;
 }

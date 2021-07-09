@@ -45,6 +45,12 @@ dependencies:
   fluttertoast: ^8.0.5
   # flutter 内置 tabBar 美化插件
   tab_indicator_styler: ^1.0.0
+  # 事件主线插件
+  event_bus: ^2.0.0
+  # 查找文件系统常用位置
+  path_provider: ^2.0.2
+  # 检查网络连接
+  connectivity: 3.0.3
 # 开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）
 dev_dependencies:
   flutter_test:
@@ -63,7 +69,6 @@ flutter:
   # 注意2：构建期间，Flutter 将 asset 放置到称为 asset bundle 的特殊存档中，应用程序可以在运行时读取它们（但不能修改）。
   # 参考文档： https://github.com/flutterchina/flutter-in-action/blob/master/docs/chapter2/flutter_assets_mgr.md
   assets:
-    - assets/images/bg.jpg
     - assets/images/welcome/
     - assets/images/common/
   #   - images/a_dot_ham.jpeg

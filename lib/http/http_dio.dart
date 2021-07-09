@@ -4,8 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:ju_flutter/config/network.dart';
 import 'package:ju_flutter/global/global.dart';
 import 'package:ju_flutter/utils/util_device.dart';
+import 'package:ju_flutter/utils/util_package.dart';
 
-/// 构造 http 请求类
+/// 构造 http 请求类（单例模式）
 ///
 /// 注意1：如果起了后端服务，用以测试需要使用ip地址进行访问。
 /// 注意2：如果是本地安卓测试，需要在"android/app/src/main/AndroidManifest.xml"路径文件的
@@ -21,101 +22,103 @@ import 'package:ju_flutter/utils/util_device.dart';
 /// 参考文档： [https://www.cnblogs.com/sundaysme/p/12624185.html]
 class HttpDio {
   /// 定义
-  ///
+  /// [_httpDio]单例对象
   /// [_dio]dio
-  /// [_baseOptions]dio基础参数信息
-  /// [_basicParams]dio的post方法基础参数
-  /// [_packageInfo]版本信息
-  static HttpDio _instance = HttpDio._internal();
-  Dio _dio;
+  static HttpDio _httpDio;
+  static Dio _dio;
+  Map _baseParams;
   BaseOptions _baseOptions;
-  Map<String, dynamic> _basicParams;
+  Map<String, dynamic> baseHeader = {
+    "Accept": "application/json",
+    "Content-Type": "application/json; charset=UTF-8",
+  };
 
   /// 初始化方法
-  factory HttpDio() => _instance;
+  factory HttpDio() {
+    if (_httpDio == null) {
+      _httpDio = HttpDio._internal();
+      _dio = Dio();
+    }
+    return _httpDio;
+  }
 
-  /// 通用全局单例，第一次使用时初始化
+  /// 通用全局单例
+  /// [UtilDevice()]初始化设备信息
   HttpDio._internal() {
-    if (_dio == null) {
-      _setBasicParams();
-      var options = BaseOptions(
-        baseUrl: Network.devApi[0],
-        connectTimeout: 5000,
-        receiveTimeout: 3000,
-      );
-      _dio = Dio(options);
-    }
+    UtilDevice();
   }
 
-  /// 判定是否有 baseUrl
-  static HttpDio getInstance({String url}) {
-    if (url == null) {
-      return _instance._setNormal();
-    } else {
-      return _instance._setBasicUrl(url);
-    }
+  /// 获取
+  get dio => _dio;
+
+  /// 初始化公共请求参数
+  initBaseOptions({String host, Map<String, dynamic> headers}) {
+    _baseOptions = BaseOptions(
+      baseUrl: host ?? Network.api[0],
+      connectTimeout: 20 * 1000,
+      receiveTimeout: 300000,
+      headers: headers ?? baseHeader,
+    );
+    _dio.options = _baseOptions;
   }
 
-  /// 设置默认域名
-  HttpDio _setNormal() {
-    if (_dio != null) {
-      if (_dio.options.baseUrl != Network.devApi[0]) {
-        _dio.options.baseUrl = Network.devApi[0];
-      }
-    }
-    return this;
-  }
-
-  /// 指定特定域名，比如 cdn 或者首次 http 请求
-  HttpDio _setBasicUrl(String url) {
-    if (_dio != null) {
-      _dio.options.baseUrl = url;
-    }
-    return this;
-  }
-
-  /// 设置公共参数
-  Map<String, dynamic> _setBasicParams() {
-    Map<String, dynamic> tempBasicParams = {};
+  /// api的公共参数
+  Map<String, dynamic> getBaseParam() {
+    Map<String, dynamic> info = {
+      'version': UtilPackage.getPackageInfo.version ?? "",
+    };
     if (Platform.isAndroid) {
-      tempBasicParams['oauth_id'] = UtilDevice().androidDeviceInfo;
-      tempBasicParams['version'] = UtilDevice().packageInfo.version;
+      info['oauth_id'] = UtilDevice.getAndroidInfo.androidId ?? "";
+      info['bundleId'] = UtilPackage.getPackageInfo.packageName ?? "";
+    } else {
+      var map = UtilDevice.getIosInfo.map ?? {};
+      info['oauth_id'] = UtilDevice.getIosInfo.identifierForVendor;
+      info['bundleId'] = map['bundleId'];
     }
-    if (Platform.isIOS) {}
-    String tempToken = Global.token;
-    tempBasicParams['token'] = tempToken;
-    tempBasicParams['oauth_type'] = '${Platform.isAndroid ? 'android' : 'ios'}';
-    _basicParams = tempBasicParams;
-    return tempBasicParams;
+    info['token'] = '';
+    info['app_type'] = 'flt';
+    info['oauth_type'] = '${Platform.isAndroid ? 'android' : 'ios'}';
+    _baseParams = info;
+    return info;
   }
 
   /// get方法
-  get(String url,
-      {Map<String, dynamic> querys = const {}, noTip = false}) async {
-    Response response;
+  Future get(String path, {Map<String, dynamic> querys}) async {
+    Response _response;
     try {
-      response = await _dio.get(url, queryParameters: querys);
+      _response = await _dio.get(path, queryParameters: querys ?? {});
     } catch (e) {
       return null;
     }
-    return response.data;
+    return _response.data;
   }
 
-  /// post方法
-  post(
-    String url, {
-    Map<String, dynamic> params = const {},
-    onTip = false,
-  }) async {
-    Response response;
+  /// post default 方法
+  Future purePost(String path, {dynamic params}) async {
+    Response _response;
     try {
-      Map<String, dynamic> tempParam;
-      if (params == null) tempParam = {};
-      tempParam.addAll(_basicParams);
-      response = await _dio.post(url, data: tempParam);
+      _response = await _dio.post(
+        path,
+        options: Options(responseType: ResponseType.plain),
+        data: params,
+      );
     } catch (e) {
       return null;
     }
-    return response.data;
+    return _response.data;
+  }
+
+  /// post 方法
+  Future<Map> post(String path, {Map<String, dynamic> params}) async {
+    Response _response;
+    try {
+      if (params == null) params = {};
+      Map<String, dynamic> tempParam = getBaseParam();
+      tempParam.addAll(params);
+      _response = await _dio.post(path, data: tempParam);
+    } catch (e) {
+      return null;
+    }
+    return _response.data;
   }
 }

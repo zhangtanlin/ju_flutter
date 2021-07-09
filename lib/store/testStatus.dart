@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-/// 跨部件状态共享
-///
-/// 主要用来处理一些多部件的状态保存，和 shared_preferences 有区别。
-/// shared_preferences 是本地保存，这种方式是多部件共享的状态。
+/// 通知冒泡（Notificationg Bubbling）
+/// 子节点向父节点传递 Notification。不仅能够提供数据供子孙节点使用，还可以在数据改变的时候通知所有听众刷新。
 class TestState with ChangeNotifier {
   /// 定义
   bool test = false;
