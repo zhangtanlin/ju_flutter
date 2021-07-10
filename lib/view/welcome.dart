@@ -87,7 +87,8 @@ class _WelcomeState extends State<Welcome> {
     });
     UtilCheckLine.checkLine(onIpError: () {
       ComToast.error('ip错误');
-    }, onSuccess: (ModelConfig data) {
+    }, onSuccess: (ModelConfig _modelConfig) {
+      print('--config--${_modelConfig.data.ads[0].src}--');
       setState(() {
         _isCheckLine = false;
       });
@@ -101,10 +102,14 @@ class _WelcomeState extends State<Welcome> {
     return Container(
       child: Stack(
         children: [
-          Container(
-            width: UtilScreen.screenWidth,
-            height: UtilScreen.screenHeight,
-            child: Image.asset('assets/images/common/open-ad.jpg'),
+          GestureDetector(
+            child: Container(
+              width: UtilScreen.screenWidth,
+              height: UtilScreen.screenHeight,
+              child: Image.asset('assets/images/common/open-ad.jpg'),
+              // child: Image.asset(_adThumb),
+            ),
+            onTap: () => {_adLink == '' ? null : print('1111111')},
           ),
           Positioned(
             width: UtilScreen.setWidth(50.0),

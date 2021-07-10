@@ -12,7 +12,7 @@ import 'package:sp_util/sp_util.dart';
 ///
 /// [main()]函数是应用入口；
 /// [debugPaintSizeEnabled]控制是否显示部件边线，使用时需要引入 import 'package:flutter/rendering.dart';
-/// [SpUtil.getInstance()]初始化"数据持久化"[shared_preferences]的一些方法。
+/// [SpUtil.getInstance()]异步初始化 sp_util 插件"数据持久化"[shared_preferences]的一些方法。
 /// [runApp()]运行方法；
 /// [MyApp()]根部件
 /// 注意： 如果要运行异步代码需要引入[WidgetsFlutterBinding.ensureInitialized()]。

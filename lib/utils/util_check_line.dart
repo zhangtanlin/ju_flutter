@@ -5,8 +5,7 @@ import 'package:ju_flutter/config/network.dart';
 import 'package:ju_flutter/http/http_api.dart';
 import 'package:ju_flutter/http/http_dio.dart';
 import 'package:ju_flutter/model/config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:connectivity/connectivity.dart';
+import 'package:sp_util/sp_util.dart';
 
 /// 选择路线
 class UtilCheckLine {
@@ -25,9 +24,8 @@ class UtilCheckLine {
     /// [spareLine]备用线路
     /// [handleResult]处理选择线路之后的返回值
     /// [saveLines]保存当前能够使用的线路到本地
-    SharedPreferences prefer = await SharedPreferences.getInstance();
-    List<String> totalLine = prefer.getStringList('CONFIG_LINES') != null
-        ? prefer.getStringList('CONFIG_LINES')
+    List<String> totalLine = SpUtil.getStringList('CONFIG_LINES') != null
+        ? SpUtil.getStringList('CONFIG_LINES')
         : Network.api;
     List<String> errorLines = [];
     Function check;
@@ -37,7 +35,7 @@ class UtilCheckLine {
 
     /// 方法：保存线路到本地
     saveLines = (List<String> lines) {
-      prefer.setStringList('CONFIG_LINES', lines);
+      SpUtil.putStringList('CONFIG_LINES', lines);
     };
 
     /// 方法：备用线路验证
