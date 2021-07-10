@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:ju_flutter/components/com_img.dart';
 import 'package:ju_flutter/components/com_toast.dart';
 import 'package:ju_flutter/http/http_dio.dart';
 import 'package:ju_flutter/model/config.dart';
@@ -89,9 +90,10 @@ class _WelcomeState extends State<Welcome> {
       ComToast.error('ip错误');
     }, onSuccess: (ModelConfig _modelConfig) {
       print('--config--${_modelConfig.data.ads[0].src}--');
-      setState(() {
-        _isCheckLine = false;
-      });
+      _adThumb = _modelConfig.data.ads[0].src;
+      // setState(() {
+      //   _isCheckLine = false;
+      // });
     }, onFailed: (e) {
       ComToast.error(e);
     });
@@ -106,8 +108,11 @@ class _WelcomeState extends State<Welcome> {
             child: Container(
               width: UtilScreen.screenWidth,
               height: UtilScreen.screenHeight,
-              child: Image.asset('assets/images/common/open-ad.jpg'),
-              // child: Image.asset(_adThumb),
+              // child: Image.asset('assets/images/common/open-ad.jpg'),
+              child: ComImg(
+                bg: _adThumb,
+                link: _adLink,
+              ),
             ),
             onTap: () => {_adLink == '' ? null : print('1111111')},
           ),
