@@ -50,7 +50,7 @@ dependencies:
   # 查找文件系统常用位置
   path_provider: ^2.0.2
   # 检查网络连接
-  connectivity: 3.0.3
+  connectivity: ^3.0.3
 # 开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）
 dev_dependencies:
   flutter_test:

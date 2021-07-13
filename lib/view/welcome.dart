@@ -9,6 +9,7 @@ import 'package:ju_flutter/model/config.dart';
 import 'package:ju_flutter/route/application.dart';
 import 'package:ju_flutter/utils/util_check_line.dart';
 import 'package:ju_flutter/utils/util_device.dart';
+import 'package:ju_flutter/utils/util_encrypt.dart';
 import 'package:ju_flutter/utils/util_img_cache.dart';
 import 'package:ju_flutter/utils/util_package.dart';
 import 'package:ju_flutter/utils/util_screen.dart';
@@ -49,7 +50,7 @@ class _WelcomeState extends State<Welcome> {
   /// [_timer]倒计时事件
   /// [_adThumb]广告图
   /// [_adLink]广告图链接地址
-  int _currentTime = 5;
+  int _currentTime = 10;
   Timer _timer;
   String _adThumb = '';
   String _adLink = '';
@@ -88,12 +89,11 @@ class _WelcomeState extends State<Welcome> {
     });
     UtilCheckLine.checkLine(onIpError: () {
       ComToast.error('ip错误');
-    }, onSuccess: (ModelConfig _modelConfig) {
-      print('--config--${_modelConfig.data.ads[0].src}--');
-      _adThumb = _modelConfig.data.ads[0].src;
-      // setState(() {
-      //   _isCheckLine = false;
-      // });
+    }, onSuccess: (ModelConfig _modelConfig) async {
+      await updateConifg(_modelConfig);
+      setState(() {
+        _isCheckLine = false;
+      });
     }, onFailed: (e) {
       ComToast.error(e);
     });
@@ -109,10 +109,12 @@ class _WelcomeState extends State<Welcome> {
               width: UtilScreen.screenWidth,
               height: UtilScreen.screenHeight,
               // child: Image.asset('assets/images/common/open-ad.jpg'),
-              child: ComImg(
-                bg: _adThumb,
-                link: _adLink,
-              ),
+              child: _adThumb == ''
+                  ? Container()
+                  : ComImg(
+                      bg: _adThumb,
+                      link: _adLink,
+                    ),
             ),
             onTap: () => {_adLink == '' ? null : print('1111111')},
           ),
@@ -153,6 +155,22 @@ class _WelcomeState extends State<Welcome> {
         _currentTime--;
       });
     });
+  }
+
+  /// 更新整合接口
+  updateConifg(ModelConfig _modelConfig) {
+    if (_modelConfig == null) {
+      ComToast.error('获取用户信息失败～');
+      return;
+    }
+    if (_modelConfig.status == 200) {
+      setState(() {
+        _adThumb = _modelConfig.data.ads[0].src;
+        _adLink = _modelConfig.data.ads[0].link;
+      });
+    } else {
+      ComToast.error('获取用户信息失败2～');
+    }
   }
 
   /// 构建

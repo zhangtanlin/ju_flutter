@@ -24,7 +24,8 @@ class UtilCheckLine {
     /// [spareLine]备用线路
     /// [handleResult]处理选择线路之后的返回值
     /// [saveLines]保存当前能够使用的线路到本地
-    List<String> totalLine = SpUtil.getStringList('CONFIG_LINES') != null
+    List<String> totalLine = SpUtil.getStringList('CONFIG_LINES') != null &&
+            SpUtil.getStringList('CONFIG_LINES').length > 0
         ? SpUtil.getStringList('CONFIG_LINES')
         : Network.api;
     List<String> errorLines = [];
@@ -88,20 +89,25 @@ class UtilCheckLine {
     handleResult = (line) async {
       if (line != null) {
         HttpDio().initBaseOptions(host: line); // 再次初始化 dio 的线路
-        ModelConfig _modelConfig = await HttpApi.apiConfig();
-        if (_modelConfig != null && _modelConfig.status == 200) {
-          Network.setApi([]); // api 地址
-          if (_modelConfig.data.config != null) {
-            List<String> tempLines = [];
-            String tempLinesStr = _modelConfig.data.config.api;
-            tempLinesStr.split(',').forEach((api) {
-              tempLines.add(api.toString());
-            });
-            if (tempLines.length > 0) {
-              saveLines(tempLines);
+        try {
+          ModelConfig _modelConfig = await HttpApi.apiConfig();
+          if (_modelConfig != null && _modelConfig.status == 200) {
+            if (_modelConfig.data.config != null) {
+              List<String> tempLines = [];
+              String tempLinesStr = _modelConfig.data.config.api;
+              tempLinesStr.split(',').forEach((api) {
+                tempLines.add(api.toString());
+              });
+              if (tempLines.length > 0) {
+                saveLines(tempLines);
+              }
             }
+            onSuccess(_modelConfig);
+          } else {
+            onFailed('整合接口数据错误');
           }
-          onSuccess(_modelConfig);
+        } catch (e) {
+          onFailed('整合接口请求失败');
         }
       } else {
         onFailed('线路检测失败');
@@ -111,27 +117,27 @@ class UtilCheckLine {
     /// 网络连接检测（先要执行的方法）
     /// 使用 connectivity_plus 插件判断是否有移动网络和wifi。
     /// 注意：这个网络检测的方法需要写在“线路检测（线路接口调用）”，“备用线路验证”之后。
-    try {
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.mobile ||
-          connectivityResult == ConnectivityResult.wifi) {
-        Future.any(totalLine.map((line) async {
-          var checkResult = await check(line: line);
-          if (checkResult != null) {
-            return line;
-          } else {
-            return Future.delayed(Duration(seconds: 6), () {
-              return null;
-            });
-          }
-        })).then((line) {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      Future.any(totalLine.map((line) async {
+        var checkResult = await check(line: line);
+        if (checkResult == null) {
+          return Future.delayed(Duration(seconds: 30), () {
+            return null;
+          }); // 如果当前线路未请求成功，就延时返回 null
+        } else {
+          return line;
+        }
+      })).then((line) {
+        if (line == null) {
+          onFailed('线路检测失败');
+        } else {
           handleResult(line);
-        });
-      } else {
-        onFailed('暂无网络'); // 线路检测出错了
-      }
-    } catch (e) {
-      onFailed('线路检测失败'); // 线路检测出错了
+        }
+      });
+    } else {
+      onFailed('暂无网络');
     }
   }
 }

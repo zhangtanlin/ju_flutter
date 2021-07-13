@@ -1,26 +1,16 @@
 import 'dart:convert';
-import 'dart:io';
 
 /// 加解密
-class utilEncrypt {
-  /// 加密
-  static getEncrypt(Map<String, dynamic> jsonData) async {
-    var data;
-    if (Platform.isAndroid) {
-      data = jsonEncode(jsonData);
-    } else {
-      data = jsonData;
-    }
+class UtilEncrypt {
+  //// Base64 加密
+  static String encodeBase64(String data) {
+    String _string = base64Encode(utf8.encode(data));
+    return _string;
+  }
 
-    // const decryptToken = CryptoJS.AES.decrypt(token, passwordKey).toString(
-    //       CryptoJS.enc.Utf8
-    //     )
-    //     const decryptTokenJSON = JSON.parse(decryptToken)
-    //     const decryptTokenName = decryptTokenJSON.name
-    //     const getRedisToken = redisClient.get(decryptTokenName + ':token')
-    //     if (!getRedisToken) {
-    //       return false
-    //     }
-    //     return true
+  /// Base64 解密
+  static String decodeBase64(String data) {
+    String _string = String.fromCharCodes(base64Decode(data));
+    return _string;
   }
 }

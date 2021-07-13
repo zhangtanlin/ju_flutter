@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ju_flutter/config/network.dart';
+import 'package:ju_flutter/utils/util_encrypt.dart';
 
 /// 图片模块
 class ComImg extends StatefulWidget {
@@ -51,7 +53,10 @@ class _ComImgState extends State<ComImg> {
 
   /// 解密背景图
   decryptImg() {
-    if (widget.bg.isNotEmpty) {}
+    if (widget.bg.isNotEmpty) {
+      String content = UtilEncrypt.decodeBase64(widget.bg);
+      _imageUrl = content;
+    }
   }
 
   @override
@@ -66,7 +71,8 @@ class _ComImgState extends State<ComImg> {
           fit: BoxFit.scaleDown,
         ),
       ),
-      child: widget.bg == '' ? null : Image.asset(widget.bg),
+      child:
+          _imageUrl == '' ? null : Image.network(Network.imageHost + _imageUrl),
     );
   }
 }

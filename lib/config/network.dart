@@ -19,7 +19,7 @@ class Network {
       'https://raw.githubusercontent.com/zhangtanlin/zhong/1.0.0/github-prod-api.text?t=${DateTime.now().millisecondsSinceEpoch}';
   static String _tfApi = '';
   static String _tfGithubApi = '';
-  static String _imageHost = '';
+  static String _imageHost = 'http://192.168.1.114:3000';
   static String _uploadImageKey = '';
   static String _uploadImageUrl = '';
   static String _uploadVideoKey = '';
