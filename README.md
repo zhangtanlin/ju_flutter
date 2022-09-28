@@ -40,6 +40,13 @@
     >注意1： Flutter 应用程序只有在调试模式下才能被热重载。<br/>
     >注意2：如果使用  **flutter run** 运行应用程序，在终端运行状态下输入 **r** 可以进行热重载。<br/>
     >注意3：如果使用  **flutter run** 运行应用程序，在终端运行状态下输入 **p** 可以打开布局线条，再次按 **p** 取消显示布局线条。
+4. 使用 fvm 运行,如果安装了 fvm 可以在上面的 flutter 代码运行命令前面添加 fvm 同样可以运行,例如:
+```bash
+  # 安装依赖
+  fvm flutter packages get
+  # 运行
+  fvm flutter run
+```
 
 ## 编辑代码之后执行的代码检查
 1. 代码检查: **flutter analyze**
