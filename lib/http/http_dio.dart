@@ -1,10 +1,14 @@
+/// 参考事例文档[https://zhuanlan.zhihu.com/p/487172584]
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ju_flutter/config/network.dart';
-import 'package:ju_flutter/global/global.dart';
 import 'package:ju_flutter/utils/util_device.dart';
+import 'package:ju_flutter/utils/util_log.dart';
 import 'package:ju_flutter/utils/util_package.dart';
+
+import 'http_response.dart';
 
 /// 构造 http 请求类（单例模式）
 ///
@@ -33,19 +37,23 @@ class HttpDio {
     "Content-Type": "application/json; charset=UTF-8",
   };
 
-  /// 初始化方法
-  factory HttpDio() {
-    if (_httpDio == null) {
-      _httpDio = HttpDio._internal();
-      _dio = Dio();
-    }
-    return _httpDio;
-  }
+  factory HttpDio() => _instance;
 
-  /// 通用全局单例
-  /// [UtilDevice()]初始化设备信息
+  /// 初始化配置
+  static HttpDio _instance = HttpDio._internal();
+
+  /// 通用全局单例,第一次使用时初始化
   HttpDio._internal() {
-    UtilDevice();
+    if (_dio == null) {
+      _dio = Dio(
+        BaseOptions(
+          baseUrl: Network.api[0],
+          connectTimeout: 20 * 1000,
+          receiveTimeout: 300000,
+          headers: baseHeader,
+        ),
+      );
+    }
   }
 
   /// 获取
@@ -82,18 +90,54 @@ class HttpDio {
     return info;
   }
 
+  /// 分析请求结果
+  HttpResponse analysisResponse(Response res) {
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      if (res.data["code"] == 200) {
+        UtilLog.p("200");
+        if (res.data is Map) {
+          return HttpResponse.fromJson(res.data);
+        } else {
+          return jsonDecode(res.data);
+        }
+      } else if (res.data["code"] == 404) {
+        UtilLog.p("404");
+        return HttpResponse.fromJson({
+          "code": 404,
+          "message": "正常",
+          "data": null,
+        });
+      } else if (res.data["code"] == 300) {
+        UtilLog.p("300");
+        return HttpResponse.fromJson({
+          "code": 300,
+          "message": "正常",
+          "data": null,
+        });
+      }
+    } else {
+      UtilLog.p("业务错误,报错信息");
+      return HttpResponse.fromJson({
+        "code": 200,
+        "message": "正常",
+        "data": null,
+      });
+    }
+  }
+
   /// get方法
   Future get(String path, {Map<String, dynamic> querys}) async {
     Response _response;
     try {
       _response = await _dio.get(path, queryParameters: querys ?? {});
-    } catch (e) {
+      return analysisResponse(_response);
+    } on DioError catch (e) {
+      UtilLog.p("get方法$e");
       return null;
     }
-    return _response.data;
   }
 
-  /// post default 方法
+  /// post纯净方法
   Future purePost(String path, {dynamic params}) async {
     Response _response;
     try {
@@ -102,23 +146,41 @@ class HttpDio {
         options: Options(responseType: ResponseType.plain),
         data: params,
       );
+      return analysisResponse(_response);
     } catch (e) {
+      UtilLog.p("post纯净方法$e");
       return null;
     }
-    return _response.data;
   }
 
   /// post 方法
-  Future<Map> post(String path, {Map<String, dynamic> params}) async {
+  Future post(String path, {Map<String, dynamic> params}) async {
     Response _response;
     try {
       if (params == null) params = {};
       Map<String, dynamic> tempParam = getBaseParam();
       tempParam.addAll(params);
       _response = await _dio.post(path, data: tempParam);
+      return analysisResponse(_response);
     } catch (e) {
+      UtilLog.p("post方法$e");
       return null;
     }
-    return _response.data;
+  }
+
+  /// upload方法
+  uploadFile(api, {FormData params}) async {
+    Response _response;
+    try {
+      // 注:考虑选取图片的第三方库差异此处文件格式在外界转化.
+      _response = await _dio.post(
+        api,
+        data: params,
+      );
+      return analysisResponse(_response);
+    } catch (e) {
+      UtilLog.p("upload方法$e");
+      return null;
+    }
   }
 }
