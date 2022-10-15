@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ju_flutter/config/network.dart';
 import 'package:ju_flutter/utils/util_crypto.dart';
 
-/// 图片模块
-class ComImg extends StatefulWidget {
-  /// 参数
+/// 上拉下拉刷新列表
+class ComPullRefresh extends StatefulWidget {
   /// [url]图片地址
   /// [width]图片宽度
   /// [height]图片高度
@@ -23,7 +22,7 @@ class ComImg extends StatefulWidget {
   final String link;
   final String bgColor;
   final Function callback;
-  ComImg({
+  ComPullRefresh({
     Key key,
     this.url,
     this.width,
@@ -37,10 +36,10 @@ class ComImg extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ComImgState createState() => _ComImgState();
+  _ComPullRefreshState createState() => _ComPullRefreshState();
 }
 
-class _ComImgState extends State<ComImg> {
+class _ComPullRefreshState extends State<ComPullRefresh> {
   /// 定义
   /// [_imageUrl]图片背景图
   String _imageUrl = '';

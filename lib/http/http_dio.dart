@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ju_flutter/config/network.dart';
+import 'package:ju_flutter/utils/util_crypto.dart';
 import 'package:ju_flutter/utils/util_device.dart';
 import 'package:ju_flutter/utils/util_log.dart';
 import 'package:ju_flutter/utils/util_package.dart';
@@ -28,13 +29,13 @@ class HttpDio {
   /// 定义
   /// [_httpDio]单例对象
   /// [_dio]dio
-  static HttpDio _httpDio;
   static Dio _dio;
-  Map _baseParams;
   BaseOptions _baseOptions;
   Map<String, dynamic> baseHeader = {
     "Accept": "application/json",
     "Content-Type": "application/json; charset=UTF-8",
+    "authorization":
+        "U2FsdGVkX1/FVlNaaAZrS+9kiEPyXnFukQ2RMc0kdvzRZ9aAqtIHYbtubSwVOb4JJkD+LI1cHBDSoAy05CaF1gs57n42o0nUELnhYJZTAMQ8XyNp7sGEFDibIKdSkImyI5VTZQDY/pHuCI3z2o5ZoDu1hMHl0Gn0RQPi5QDtlVk="
   };
 
   factory HttpDio() => _instance;
@@ -77,52 +78,12 @@ class HttpDio {
     };
     if (Platform.isAndroid) {
       info['oauth_id'] = UtilDevice.getAndroidInfo.androidId ?? "";
-      info['bundleId'] = UtilPackage.getPackageInfo.packageName ?? "";
     } else {
-      var map = UtilDevice.getIosInfo.map ?? {};
-      info['oauth_id'] = UtilDevice.getIosInfo.identifierForVendor;
-      info['bundleId'] = map['bundleId'];
+      info['oauth_id'] = UtilDevice.getIosInfo.identifierForVendor ?? "";
     }
     info['token'] = '';
-    info['app_type'] = 'flt';
     info['oauth_type'] = '${Platform.isAndroid ? 'android' : 'ios'}';
-    _baseParams = info;
     return info;
-  }
-
-  /// 分析请求结果
-  HttpResponse analysisResponse(Response res) {
-    if (res.statusCode == 200 || res.statusCode == 201) {
-      if (res.data["code"] == 200) {
-        UtilLog.p("200");
-        if (res.data is Map) {
-          return HttpResponse.fromJson(res.data);
-        } else {
-          return jsonDecode(res.data);
-        }
-      } else if (res.data["code"] == 404) {
-        UtilLog.p("404");
-        return HttpResponse.fromJson({
-          "code": 404,
-          "message": "正常",
-          "data": null,
-        });
-      } else if (res.data["code"] == 300) {
-        UtilLog.p("300");
-        return HttpResponse.fromJson({
-          "code": 300,
-          "message": "正常",
-          "data": null,
-        });
-      }
-    } else {
-      UtilLog.p("业务错误,报错信息");
-      return HttpResponse.fromJson({
-        "code": 200,
-        "message": "正常",
-        "data": null,
-      });
-    }
   }
 
   /// get方法
@@ -132,7 +93,7 @@ class HttpDio {
       _response = await _dio.get(path, queryParameters: querys ?? {});
       return analysisResponse(_response);
     } on DioError catch (e) {
-      UtilLog.p("get方法$e");
+      UtilLog.p("get方法错误:$e");
       return null;
     }
   }
@@ -141,14 +102,17 @@ class HttpDio {
   Future purePost(String path, {dynamic params}) async {
     Response _response;
     try {
+      if (params == null) params = {};
+      Map<String, dynamic> tempParam = getBaseParam();
+      tempParam.addAll(params);
       _response = await _dio.post(
         path,
         options: Options(responseType: ResponseType.plain),
-        data: params,
+        data: tempParam,
       );
       return analysisResponse(_response);
     } catch (e) {
-      UtilLog.p("post纯净方法$e");
+      UtilLog.p("post纯净方法错误:$e");
       return null;
     }
   }
@@ -160,15 +124,21 @@ class HttpDio {
       if (params == null) params = {};
       Map<String, dynamic> tempParam = getBaseParam();
       tempParam.addAll(params);
-      _response = await _dio.post(path, data: tempParam);
+      // 加密
+      String encryptStr = await UtilCrypto.publicEncryptFn(
+        tempParam,
+      );
+      _response = await _dio.post(
+        path,
+        data: {"data": encryptStr},
+      );
       return analysisResponse(_response);
     } catch (e) {
-      UtilLog.p("post方法$e");
       return null;
     }
   }
 
-  /// upload方法
+  /// upload上传
   uploadFile(api, {FormData params}) async {
     Response _response;
     try {
@@ -181,6 +151,38 @@ class HttpDio {
     } catch (e) {
       UtilLog.p("upload方法$e");
       return null;
+    }
+  }
+
+  /// 分析请求结果
+  HttpResponse analysisResponse(Response res) {
+    // UtilLog.p("分析请求结果:$res");
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      if (res.data["code"] == 200) {
+        if (res.data is Map) {
+          return HttpResponse.fromJson(res.data);
+        } else {
+          return jsonDecode(res.data);
+        }
+      } else if (res.data["code"] == 404) {
+        return HttpResponse.fromJson({
+          "code": 404,
+          "message": "正常",
+          "data": null,
+        });
+      } else if (res.data["code"] == 300) {
+        return HttpResponse.fromJson({
+          "code": 300,
+          "message": "正常",
+          "data": null,
+        });
+      }
+    } else {
+      return HttpResponse.fromJson({
+        "code": 200,
+        "message": "业务错误,报错信息",
+        "data": null,
+      });
     }
   }
 }

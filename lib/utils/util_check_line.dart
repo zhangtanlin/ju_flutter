@@ -68,7 +68,9 @@ class UtilCheckLine {
           return null; // DNS 解析错误
         } else {
           try {
-            var apiVerify = await HttpDio().purePost('$line/api/line/verify');
+            var apiVerify = await HttpDio().post(
+              '$line/api/line/verify',
+            );
             if (apiVerify == null) {
               errorLines.add(line.toString());
               if (errorLines.length == totalLine.length) {

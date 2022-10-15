@@ -9,7 +9,6 @@ import 'package:ju_flutter/model/config.dart';
 import 'package:ju_flutter/route/application.dart';
 import 'package:ju_flutter/utils/util_check_line.dart';
 import 'package:ju_flutter/utils/util_device.dart';
-import 'package:ju_flutter/utils/util_encrypt.dart';
 import 'package:ju_flutter/utils/util_img_cache.dart';
 import 'package:ju_flutter/utils/util_package.dart';
 import 'package:ju_flutter/utils/util_screen.dart';

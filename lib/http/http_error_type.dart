@@ -26,7 +26,7 @@ class ErrorType {
   }
 
   // 处理 http 错误码
-  static String handleHttpError(int errorCode) {
+  static String httpError(int errorCode) {
     String message;
     switch (errorCode) {
       case 300:
@@ -67,19 +67,19 @@ class ErrorType {
         message = "和被请求的资源状态冲突,无法完成请求";
         break;
       case 500:
-        message = "服务器无法处理";
+        message = "服务器异常";
         break;
       case 501:
-        message = "服务器无法处理当前请求类型";
+        message = "服务器无法处理当前请求类型/服务未实现";
         break;
       case 502:
-        message = "502";
+        message = "网关错误";
         break;
       case 503:
-        message = "服务器没有准备好处理请求";
+        message = "服务不可用";
         break;
       case 504:
-        message = "服务器作为网关,未及时得到响应请求";
+        message = "网关超时,未及时得到响应请求";
         break;
       case 505:
         message = "服务器不支持请求中所使用的HTTP协议版本";

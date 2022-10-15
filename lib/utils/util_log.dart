@@ -50,13 +50,11 @@ class UtilLog {
 
   /// [_log()]打印全部日志
   static void _log(String msg) {
-    _logLine(prompt: '开始');
     if (msg.length < _limit) {
       print(msg);
     } else {
       _logRemainder(msg);
     }
-    _logLine(prompt: '结束');
   }
 
   /// 打印日志【暴露出去的方法（外部调用的方法）】

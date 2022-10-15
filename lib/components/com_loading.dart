@@ -3,7 +3,7 @@ import 'package:ju_flutter/config/network.dart';
 import 'package:ju_flutter/utils/util_crypto.dart';
 
 /// 图片模块
-class ComImg extends StatefulWidget {
+class ComLoading extends StatefulWidget {
   /// 参数
   /// [url]图片地址
   /// [width]图片宽度
@@ -23,7 +23,7 @@ class ComImg extends StatefulWidget {
   final String link;
   final String bgColor;
   final Function callback;
-  ComImg({
+  ComLoading({
     Key key,
     this.url,
     this.width,
@@ -37,10 +37,10 @@ class ComImg extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ComImgState createState() => _ComImgState();
+  _ComLoadingState createState() => _ComLoadingState();
 }
 
-class _ComImgState extends State<ComImg> {
+class _ComLoadingState extends State<ComLoading> {
   /// 定义
   /// [_imageUrl]图片背景图
   String _imageUrl = '';

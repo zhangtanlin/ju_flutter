@@ -1,33 +1,34 @@
 // To parse this JSON data, do
 //
-//     final basic = basicFromJson(jsonString);
+//     final modelBasic = modelBasicFromJson(jsonString);
 
 import 'dart:convert';
 
-Basic basicFromJson(String str) => Basic.fromJson(json.decode(str));
+ModelBasic modelBasicFromJson(String str) =>
+    ModelBasic.fromJson(json.decode(str));
 
-String basicToJson(Basic data) => json.encode(data.toJson());
+String modelBasicToJson(ModelBasic data) => json.encode(data.toJson());
 
-class Basic {
-  Basic({
-    this.data,
-    this.status,
+class ModelBasic {
+  ModelBasic({
+    this.code,
     this.message,
+    this.data,
   });
 
-  dynamic data;
-  int status;
+  int code;
   String message;
+  dynamic data;
 
-  factory Basic.fromJson(Map<String, dynamic> json) => Basic(
-        data: json["data"],
-        status: json["status"],
+  factory ModelBasic.fromJson(Map<String, dynamic> json) => ModelBasic(
+        code: json["code"],
         message: json["message"],
+        data: json["data"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data,
-        "status": status,
+        "code": code,
         "message": message,
+        "data": data,
       };
 }

@@ -1,3 +1,5 @@
+import 'package:ju_flutter/utils/util_crypto.dart';
+
 /// 返回结果类
 /// [_code]状态码
 /// [_message]提示文字
@@ -8,7 +10,7 @@ class HttpResponse {
   dynamic _data;
 
   /// 格式化
-  HttpResponse.fromJson(Map result) {
+  HttpResponse.fromJson(result) {
     this._code = result["code"];
     this._message = result["message"];
     this._data = result["data"];
@@ -21,6 +23,13 @@ class HttpResponse {
 
   @override
   String toString() {
-    return "HttpResponse{code:$code,msg:$message,data:$data}";
+    try {
+      var decryptData = UtilCrypto.privateDecryptFn(
+        data,
+      );
+      return "HttpResponse{code:$code,message:$message,data:$decryptData}";
+    } catch (e) {
+      return "HttpResponse{code:$code,message:$message,data:''}";
+    }
   }
 }

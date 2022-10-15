@@ -51,6 +51,10 @@ dependencies:
   path_provider: ^2.0.2
   # 检查网络连接
   connectivity: ^3.0.3
+  # 下拉刷新
+  pull_to_refresh: ^2.0.0
+  # RSA 加解密
+  encrypt: ^5.0.1
 # 开发环境依赖的工具包（而不是 flutter 应用本身依赖的包）
 dev_dependencies:
   flutter_test:
@@ -71,6 +75,7 @@ flutter:
   assets:
     - assets/images/welcome/
     - assets/images/common/
+    - assets/ssh/
   #   - images/a_dot_ham.jpeg
   # 一个图片资源可以引用一个或者多个特定分辨率的变体
   # 文档查看 https://flutter.dev/assets-and-images/#resolution-aware

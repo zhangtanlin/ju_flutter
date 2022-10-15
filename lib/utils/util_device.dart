@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
+import 'package:ju_flutter/utils/util_log.dart';
 
 /// 设备信息(含版本信息)
 class UtilDevice {
@@ -27,15 +28,15 @@ class UtilDevice {
   }
 
   /// 初始化 android/ios 信息
-  Future initDeviceInfo() async {
+  Future<void> initDeviceInfo() async {
     _deviceInfoPlugin = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo _androidInfo = await _deviceInfoPlugin.androidInfo;
       _androidDeviceInfo = _androidInfo;
     }
     if (Platform.isIOS) {
-      IosDeviceInfo _iosDeviceInfo = await _deviceInfoPlugin.iosInfo;
-      _iosDeviceInfo = _iosDeviceInfo;
+      IosDeviceInfo _iosInfo = await _deviceInfoPlugin.iosInfo;
+      _iosDeviceInfo = _iosInfo;
     }
   }
 
