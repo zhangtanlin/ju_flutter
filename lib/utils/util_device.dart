@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
-import 'package:ju_flutter/utils/util_log.dart';
 
 /// 设备信息(含版本信息)
 class UtilDevice {
