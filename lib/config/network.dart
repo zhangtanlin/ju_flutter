@@ -10,13 +10,13 @@ class Network {
   /// [_uploadVideoKey]上传视频 key
   /// [_uploadVideoUrl]上传视频地址
   static List<String> _api = [
-    'http://127.0.0.1:3000',
-    // 'http://192.168.1.114:3001',
-    // 'http://192.168.1.114:3002',
-    // 'http://192.168.1.114:3003',
+    'http://192.168.10.13:3000',
+    'http://192.168.10.13:3001',
+    'http://192.168.10.13:3002',
+    'http://192.168.10.13:3003',
   ];
   static String _githubApi =
-      'https://raw.githubusercontent.com/zhangtanlin/zhong/1.0.0/github-prod-api.text?t=${DateTime.now().millisecondsSinceEpoch}';
+      'https://raw.githubusercontent.com/zhangtanlin/zhong/master/github-prod-api.text?t=${DateTime.now().millisecondsSinceEpoch}';
   static String _tfApi = '';
   static String _tfGithubApi = '';
   static String _imageHost = 'http://192.168.1.114:3000';

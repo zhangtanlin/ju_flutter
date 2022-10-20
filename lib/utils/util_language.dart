@@ -9,7 +9,6 @@ enum Language {
 /// 字体：[hans]表示简体，[hant]表示繁体
 class LanguageText {
   static const Map<String, String> hant = {
-    
     /// 公共文本
     'weixin': '微信',
     'tips': '提示',
@@ -41,11 +40,10 @@ class LanguageText {
     'mine': '我的',
 
     /// 视频播放器
-    'videoError': 'error',
+    'videoError': '錯誤',
   };
 
   static const Map<String, String> hans = {
-    
     /// 公共文本
     'weixin': '微信',
     'tips': '提示',
@@ -77,17 +75,16 @@ class LanguageText {
     'mine': '我的',
 
     /// 视频播放器
-    'videoError': 'error',
+    'videoError': '错误',
   };
 }
 
 /// 语言
 class UtilLanguage {
-  
   /// 定义
-  static Language _language = Language.hant; // 默认语言-中文简体
-  static Map<String, String> _localeLanguage = LanguageText.hans; // 默认语言文字
-  
+  static Language _language = Language.hans; // 默认语言-中文简体
+  static Map<String, String> _localeLanguage = LanguageText.hans; // 默认语言文字-中文简体
+
   /// 设置
   static void setLocalLanguage(Language localeLanguage) {
     switch (localeLanguage) {
@@ -95,7 +92,7 @@ class UtilLanguage {
         _localeLanguage = LanguageText.hant;
         _language = Language.hant;
         break;
-      case Language.hant:
+      case Language.hans:
         _localeLanguage = LanguageText.hans;
         _language = Language.hans;
         break;
