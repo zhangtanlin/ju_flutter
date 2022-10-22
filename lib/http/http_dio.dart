@@ -1,4 +1,5 @@
 /// 参考事例文档[https://zhuanlan.zhihu.com/p/487172584]
+/// dio封装实现学习文档:https://hastebin.com/ilapixerel.dart
 import 'dart:convert';
 import 'dart:io';
 
