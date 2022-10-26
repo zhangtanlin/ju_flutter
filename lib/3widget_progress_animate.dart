@@ -17,8 +17,10 @@ class _WidgetProgressAimateState extends State<WidgetProgressAimate>
   @override
   void initState() {
     // 部件初始化-进度指示器-进度色动画
-    _animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _animationController = new AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3),
+    );
     _animationController.forward();
     _animationController.addListener(() => {setState(() => {})});
     super.initState();
@@ -34,9 +36,9 @@ class _WidgetProgressAimateState extends State<WidgetProgressAimate>
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
           /**
            * 进度指示器-进度色动画
            * 定制进度指示器风格样式，可以通过 CustomPainter Widget 来自定义绘制逻辑，实际上 LinearProgressIndicator 和
@@ -46,8 +48,12 @@ class _WidgetProgressAimateState extends State<WidgetProgressAimate>
             padding: EdgeInsets.all(16),
             child: LinearProgressIndicator(
               backgroundColor: Colors.amber[900],
-              valueColor: ColorTween(begin: Colors.brown, end: Colors.red)
-                  .animate(_animationController), // 从赭色变成红色
+              valueColor: ColorTween(
+                begin: Colors.brown,
+                end: Colors.red,
+              ).animate(
+                _animationController,
+              ), // 从赭色变成红色
               value: _animationController.value,
             ),
           ),
@@ -60,6 +66,8 @@ class _WidgetProgressAimateState extends State<WidgetProgressAimate>
               }));
             },
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }

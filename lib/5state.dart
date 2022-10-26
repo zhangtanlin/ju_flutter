@@ -85,19 +85,20 @@ class ChildA extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _handle,
-        child: new Container(
-          child: new Center(
-              child: new Text(
-            active ? '执行（颜色为绿色）' : '未执行（颜色为灰色）',
-            style: new TextStyle(fontSize: 32.0, color: Colors.white),
-          )),
-          width: 200.0,
-          height: 200.0,
-          decoration: new BoxDecoration(
-            color: active ? Colors.lightGreen[700] : Colors.grey[600],
-          ),
-        ));
+      onTap: _handle,
+      child: new Container(
+        child: new Center(
+            child: new Text(
+          active ? '执行（颜色为绿色）' : '未执行（颜色为灰色）',
+          style: new TextStyle(fontSize: 32.0, color: Colors.white),
+        )),
+        width: 200.0,
+        height: 200.0,
+        decoration: new BoxDecoration(
+          color: active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+      ),
+    );
   }
 }
 
@@ -174,21 +175,20 @@ class _ChildBState extends State<ChildB> {
       onTap: _handle, // 点击过后
       onTapCancel: _handleCancel,
       child: new Container(
-          child: new Center(
-            child: new Text(
-              widget.active ? '执行（颜色为绿色）' : '未执行（颜色为灰色）',
-              style: new TextStyle(fontSize: 32.0, color: Colors.white),
-            ),
+        child: new Center(
+          child: new Text(
+            widget.active ? '执行（颜色为绿色）' : '未执行（颜色为灰色）',
+            style: new TextStyle(fontSize: 32.0, color: Colors.white),
           ),
-          width: 200.0,
-          height: 200.0,
-          decoration: new BoxDecoration(
-            color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
-            border: _highLight ? new Border.all(
-              color: Colors.teal[700],
-              width: 10.0
-            ) : null
-          ),  
+        ),
+        width: 200.0,
+        height: 200.0,
+        decoration: new BoxDecoration(
+          color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+          border: _highLight
+              ? new Border.all(color: Colors.teal[700], width: 10.0)
+              : null,
+        ),
       ),
     );
   }

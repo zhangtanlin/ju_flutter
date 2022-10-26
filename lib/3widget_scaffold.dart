@@ -62,28 +62,29 @@ class _WidgetScaffoldState extends State<WidgetScaffold>
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(list[i]),
               ),
-              i == _tabsCheckedIndex
-                  ? Positioned(
-                      top: 0,
-                      right: 0,
-                      width: 13,
-                      height: 13,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(15.0),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color.fromRGBO(255, 0, 48, 1.0),
-                              Color.fromRGBO(255, 255, 255, 1.0),
-                            ],
-                          ),
-                        ),
+              if (i == _tabsCheckedIndex)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  width: 13,
+                  height: 13,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(15.0),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromRGBO(255, 0, 48, 1.0),
+                          Color.fromRGBO(255, 255, 255, 1.0),
+                        ],
                       ),
-                    )
-                  : Container(),
+                    ),
+                  ),
+                )
+              else
+                Container(),
             ],
           ),
         ),
@@ -177,12 +178,15 @@ class LeftNav extends StatelessWidget {
         children: <Widget>[
           Text('${context.watch<TestState>().test.toString()}'),
           RaisedButton(
-              child: Text('点击测试跨部件获取公共状态'),
-              onPressed: () {
-                Navigator.pop(context); // 关闭侧边栏
-                Application.fluroRouter
-                    .navigateTo(context, RouteList.customizeTab);
-              })
+            child: Text('点击测试跨部件获取公共状态'),
+            onPressed: () {
+              Navigator.pop(context); // 关闭侧边栏
+              Application.fluroRouter.navigateTo(
+                context,
+                RouteList.customizeTab,
+              );
+            },
+          )
         ],
       ),
     );
@@ -197,10 +201,11 @@ class HeaderRight extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: IconButton(
-          icon: Text('打开侧边栏'),
-          onPressed: () {
-            Scaffold.of(context).openDrawer(); // 打开侧边栏
-          }),
+        icon: Text('打开侧边栏'),
+        onPressed: () {
+          Scaffold.of(context).openDrawer(); // 打开侧边栏
+        },
+      ),
     );
   }
 }

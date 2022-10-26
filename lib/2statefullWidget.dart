@@ -27,7 +27,6 @@ class CounterWidget extends StatefulWidget {
 
 // 计数器（生命周期）
 class _CounterWidgetState extends State<CounterWidget> {
-
   //定义一个globalKey, 由于 GlobalKey 要保持全局唯一性，我们使用静态变量存储。
   static GlobalKey<ScaffoldState> _globalKey = GlobalKey();
 
@@ -81,19 +80,21 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     print('build');
     return Scaffold(
-        key: _globalKey, // 设置 GlobalKey 的 key
-        appBar: AppBar(
-          title: Text('StatefullWidget'),
-        ),
-        body: Center(child: Builder(builder: (context) {
+      key: _globalKey, // 设置 GlobalKey 的 key
+      appBar: AppBar(
+        title: Text('StatefullWidget'),
+      ),
+      body: Center(
+        child: Builder(builder: (context) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
-                  child: Text('$_counter'),
-                  textColor: Colors.red[900],
-                  // 点击后计数器自增
-                  onPressed: () => setState(() => ++_counter)),
+                child: Text('$_counter'),
+                textColor: Colors.red[900],
+                // 点击后计数器自增
+                onPressed: () => setState(() => ++_counter),
+              ),
               RaisedButton(
                 child: Text("点击显示 SnackBar 部件"),
                 textColor: Colors.pink,
@@ -127,13 +128,16 @@ class _CounterWidgetState extends State<CounterWidget> {
                    * 注意：GlobalKey开销较大，如果有其他可选方案，应尽量避免使用它。另外同一个GlobalKey在整个widget树中必须是唯一的，不能重复。
                    */
                   ScaffoldState _state = _globalKey.currentState;
-                  _state
-                      .showSnackBar(SnackBar(content: Text('我是 SnackBar 部件')));
+                  _state.showSnackBar(
+                    SnackBar(content: Text('我是 SnackBar 部件')),
+                  );
                 },
               ),
             ],
           );
-        })));
+        }),
+      ),
+    );
   }
 
   /*

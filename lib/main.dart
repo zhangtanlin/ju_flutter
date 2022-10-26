@@ -38,13 +38,17 @@ void main() async {
   ///
   /// [statusBarColor] 状态栏背景色(什么颜色都可以)
   /// [statusBarIconBrightness] 状态栏图标颜色【默认为深色(Brightness.dark)，可选亮色(Brightness.light)】
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
       statusBarColor: Colors.black26,
-      statusBarIconBrightness: Brightness.light));
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
 
   /// 强制应用程序竖屏
   SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
+  );
 }
 
 /// 根部件（无状态）

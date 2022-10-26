@@ -86,8 +86,8 @@ class _WidgetLayoutState extends State<WidgetLayout> {
             /// })
             /// ```
             Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // 测试Row对齐方式，排除Column默认居中对齐的干扰
+              // 测试Row对齐方式，排除Column默认居中对齐的干扰
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -208,9 +208,9 @@ class _WidgetLayoutState extends State<WidgetLayout> {
             ),
             ConstrainedBox(
               constraints: BoxConstraints(
-                  minWidth: double
-                      .infinity // 将minWidth设为double.infinity，可以使宽度占用尽可能多的空间
-                  ),
+                // 将minWidth设为double.infinity，可以使宽度占用尽可能多的空间
+                minWidth: double.infinity,
+              ),
               child: Column(children: <Widget>[
                 Text('垂直1'),
                 Text('垂直2'),
@@ -223,12 +223,14 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max, // 有效，外层Colum高度为整个屏幕
+                  // 有效，外层Colum高度为整个屏幕
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Container(
                       color: Colors.red,
                       child: Column(
-                        mainAxisSize: MainAxisSize.max, // 无效，内层 Colum 高度为实际高度
+                        // 无效，内层 Colum 高度为实际高度
+                        mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text("hello world "),
                           Text("I am Jack "),
@@ -241,8 +243,8 @@ class _WidgetLayoutState extends State<WidgetLayout> {
                       child: Container(
                         color: Colors.red,
                         child: Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center, // 垂直方向居中对齐
+                          // 垂直方向居中对齐
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text("1111"),
                             Text("I am Jack "),
@@ -258,7 +260,8 @@ class _WidgetLayoutState extends State<WidgetLayout> {
               child: Text('点击查看弹性布局及更多的部件'),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return WidgetFlex(); // 点击查看弹性布局及更多的部件
+                  // 点击查看弹性布局及更多的部件
+                  return WidgetFlex();
                 }));
               },
             ),
