@@ -62,6 +62,13 @@ class _WidgetScaffoldState extends State<WidgetScaffold>
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(list[i]),
               ),
+              i == _tabsCheckedIndex
+                  ? Container(
+                      child: Text('三元运算1'),
+                    )
+                  : Container(
+                      child: Text('三元运算2'),
+                    ),
               if (i == _tabsCheckedIndex)
                 Positioned(
                   top: 0,
