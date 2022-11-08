@@ -8,6 +8,7 @@
 - [很全面的文档](https://github.com/flutterchina/flutter-in-action/blob/master/docs/SUMMARY.md)
 - [flutter代码解惑文档](https://juejin.cn/post/7157297867236278308)
 - [计算机基础-学习路径](https://zhuanlan.zhihu.com/p/405628414)
+- [flutter单例学习](https://codeantenna.com/a/Yjpf18RZqV)
 
 ## 目录介绍
 * pubspec.yaml Flutter包管理工具
