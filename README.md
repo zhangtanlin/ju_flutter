@@ -109,5 +109,7 @@ flutter build apk --target-platform  android-arm --split-per-abi
 5-2:定义探测备用线路的方法 checkBackUpLine；
 5-2-1: 请求 github 备用地址。使用 Uri.parse('http://github.com/****')方法解析备用地址。
 
-
+## 代码优化
+1.三元运算符的替换。
+三元运算符往往不能够对齐,影响代码美观度,建议使用一个函数进行条件判定.
 

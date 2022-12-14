@@ -59,20 +59,33 @@ class _ComImgState extends State<ComImg> {
     }
   }
 
+  // 条件判定是否有图片
+  Widget setImgWidget(_imageUrl) {
+    if (_imageUrl) {
+      return Image.network(
+        Network.imageHost + _imageUrl,
+      );
+    } else {
+      return SizedBox();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width ?? double.infinity, // double.infinity 和父元素一样大
+      // double.infinity 和父元素一样大
+      width: widget.width ?? double.infinity,
       height: widget.height ?? double.infinity,
       decoration: BoxDecoration(
         color: widget.bgColor ?? Colors.black38,
         image: DecorationImage(
-          image: AssetImage('assets/images/common/logo.png'),
+          image: AssetImage(
+            'assets/images/common/logo.png',
+          ),
           fit: BoxFit.scaleDown,
         ),
       ),
-      child:
-          _imageUrl == '' ? null : Image.network(Network.imageHost + _imageUrl),
+      child: setImgWidget(_imageUrl),
     );
   }
 }
